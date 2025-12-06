@@ -3,6 +3,16 @@
     { "id": 1, "name": "Ravi Patel", "email": "ravi@example.com", "password": "12345" }
   ],
 
+  "manager":[
+    {
+      "id":101,
+      "name":"Chiranj Patel",
+      "email":"chiranj@example.com",
+      "phone":"9016291573",
+      "password" : "12345"
+    }
+  ],
+
   "hostels": [
     {
       "id": 1,

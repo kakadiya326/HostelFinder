@@ -14,21 +14,16 @@
         <h1 class="logo">🏠 HostelFinder</h1>
     </header>
 
-    <div class="container">
-
-
-
-    </div>
+    <div class="container"></div>
 
     <footer>
         <p>© 2025 HostelFinder | Connecting Students & Hostels</p>
     </footer>
-
+    <script src="api/api.js"></script>
+    <script src="api/hostels.js"></script>
     <script>
         const hostelData = JSON.parse(localStorage.getItem('detailOfHostel'));
         let container = document.querySelector('.container');
-
-        console.log(hostelData);
 
         let imageCon = document.createElement('div');
         imageCon.setAttribute('class', 'image-box');
@@ -50,15 +45,33 @@
             <h3>Facilities</h3>
         `;
 
-        infoCon.append(ul);   // ⭐ Correct way to insert the dynamic UL
+        infoCon.append(ul);   
 
         infoCon.innerHTML += `
             <h3>Price</h3>
             <p class="price">₹${hostelData.price} / month</p>
-            <button class="contact-btn">Contact Manager</button>
+            <div class="contact-wrapper">
+                <button class="contact-btn">Contact Manager</button>
+                <div class="contact"></div>
+            </div>
         `;
 
         container.append(imageCon, infoCon);
+
+
+        //Made contact manager floating container
+        async function makeContact() {
+            var contactDetails = await getManager(hostelData.managerId);
+            let contact = document.querySelector('.contact');
+
+            let phone = document.createElement('span');
+            phone.innerText = contactDetails.phone;
+            let email = document.createElement('span');
+            email.innerText = contactDetails.email;
+            contact.append(phone,email)
+        }
+        makeContact();
+
 
     </script>
 </body>
