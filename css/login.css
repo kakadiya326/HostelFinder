@@ -1,0 +1,53 @@
+*{ margin:0; padding:0; box-sizing:border-box; font-family:"Segoe UI"; }
+
+body{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  background:url("https://source.unsplash.com/1400x900/?building,hostel") center/cover no-repeat;
+}
+
+.wrapper{
+  background:rgba(255,255,255,0.18);
+  backdrop-filter:blur(15px);
+  padding:40px 35px;
+  border-radius:15px;
+  width:380px;
+  text-align:center;
+  box-shadow:0 4px 20px rgba(0,0,0,0.25);
+}
+
+h2{ margin-bottom:25px; color:white; }
+
+input{
+  width:100%;
+  padding:12px;
+  margin:10px 0;
+  border:none;
+  border-radius:8px;
+  outline:none;
+  font-size:15px;
+}
+
+.btn{
+  width:100%;
+  padding:12px;
+  margin-top:15px;
+  background:#0077ff;
+  border:none;
+  color:white;
+  font-size:18px;
+  border-radius:8px;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.btn:hover{ background:#005ecc; }
+
+.switch{
+  margin-top:15px;
+  font-size:15px;
+  color:white;
+}
+.switch a{ color:#ffd700; text-decoration:none; font-weight:bold; }

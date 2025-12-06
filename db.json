@@ -1,0 +1,190 @@
+{
+  "users": [
+    { "id": 1, "name": "Ravi Patel", "email": "ravi@example.com", "password": "12345" }
+  ],
+
+  "hostels": [
+    {
+      "id": 1,
+      "name": "Green Stay Hostel",
+      "city": "Ahmedabad",
+      "state": "Gujarat",
+      "location": "📍 Ahmedabad, Gujarat",
+      "facilities": [
+        "WiFi Included",
+        "24/7 Security",
+        "Mess & Canteen",
+        "Laundry Service",
+        "AC / Non AC Rooms"
+      ],
+      "price": 4500,
+      "image": "https://i0.wp.com/cuap.ac.in/wp-content/uploads/2025/05/Hostel-Room-scaled.jpg?fit=2560%2C1707&ssl=1",
+      "managerId": 101
+    },
+    {
+      "id": 2,
+      "name": "City Comfort Hostel",
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "location": "📍 Mumbai, Maharashtra",
+      "facilities": [
+        "WiFi Included",
+        "24/7 Security",
+        "Power Backup",
+        "Hot Water",
+        "CCTV Monitoring"
+      ],
+      "price": 6000,
+      "image": "https://thumbs.dreamstime.com/b/hostel-dormitory-beds-arranged-room-98117029.jpg",
+      "managerId": 102
+    },
+    {
+      "id": 3,
+      "name": "Bright Nest Hostel",
+      "city": "Pune",
+      "state": "Maharashtra",
+      "location": "📍 Pune, Maharashtra",
+      "facilities": [
+        "Gym Access",
+        "WiFi Included",
+        "Laundry",
+        "Parking",
+        "Security Guard"
+      ],
+      "price": 5500,
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_R51dPZEkFi1bBLTkHsV5Pi76B8mCi_7FhQ&s",
+      "managerId": 103
+    },
+    {
+      "id": 4,
+      "name": "Royal PG Hostel",
+      "city": "Surat",
+      "state": "Gujarat",
+      "location": "📍 Surat, Gujarat",
+      "facilities": [
+        "Attached Bathroom",
+        "Meals Included",
+        "WiFi Included",
+        "CCTV",
+        "RO Water"
+      ],
+      "price": 4800,
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiWCSW_ZcLLvsrKBq632HVu-ZosC51QjesZQ&s",
+      "managerId": 104
+    },
+    {
+      "id": 5,
+      "name": "Dream Home Hostel",
+      "city": "Vadodara",
+      "state": "Gujarat",
+      "location": "📍 Vadodara, Gujarat",
+      "facilities": [
+        "WiFi Included",
+        "Mess & Canteen",
+        "AC Rooms",
+        "Housekeeping",
+        "Study Table"
+      ],
+      "price": 4200,
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsHg37hv7CgSVkADMYKY2JodqHj_YpN74A6w&s",
+      "managerId": 105
+    },
+    {
+      "id": 6,
+      "name": "Metro Boys Hostel",
+      "city": "Bangalore",
+      "state": "Karnataka",
+      "location": "📍 Bangalore, Karnataka",
+      "facilities": [
+        "WiFi",
+        "Parking",
+        "Fridge",
+        "Power Backup",
+        "Security"
+      ],
+      "price": 6500,
+      "image": "https://qph.cf2.quoracdn.net/main-qimg-86cc9d54f31a6c312769c9191071a216-lq",
+      "managerId": 106
+    },
+    {
+      "id": 7,
+      "name": "Comfort Stay Hostel",
+      "city": "Chennai",
+      "state": "Tamil Nadu",
+      "location": "📍 Chennai, Tamil Nadu",
+      "facilities": [
+        "WiFi",
+        "24/7 Water",
+        "Laundry",
+        "Security Guard",
+        "Parking"
+      ],
+      "price": 5300,
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRmJfdwOzwcmrC7byfn08I5DhNUMJq9hBIVg&s",
+      "managerId": 107
+    },
+    {
+      "id": 8,
+      "name": "Skyline Hostel",
+      "city": "Kolkata",
+      "state": "West Bengal",
+      "location": "📍 Kolkata, West Bengal",
+      "facilities": [
+        "WiFi Included",
+        "CCTV",
+        "Mess",
+        "RO Water",
+        "Hot Water"
+      ],
+      "price": 4600,
+      "image": "https://media.gettyimages.com/id/1398803655/photo/bunkbeds-in-hostel-room.jpg?s=612x612&w=gi&k=20&c=S1ocRh3nK2MxZjItSSjDy_lX68r2SAQzHQgn390cJAY=",
+      "managerId": 108
+    },
+    {
+      "id": 9,
+      "name": "Blue Moon Hostel",
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "location": "📍 Hyderabad, Telangana",
+      "facilities": [
+        "WiFi Included",
+        "Laundry",
+        "Hot Water",
+        "Security",
+        "Parking"
+      ],
+      "price": 5200,
+      "image": "https://qph.cf2.quoracdn.net/main-qimg-fc23f6243e0fc8a39da8d12aa7519e07-pjlq",
+      "managerId": 109
+    },
+    {
+      "id": 10,
+      "name": "Urban Stay Hostel",
+      "city": "Indore",
+      "state": "Madhya Pradesh",
+      "location": "📍 Indore, Madhya Pradesh",
+      "facilities": [
+        "WiFi",
+        "Security Guard",
+        "Mess",
+        "RO Water",
+        "Parking"
+      ],
+      "price": 3900,
+      "image": "https://media.istockphoto.com/id/1414156193/photo/modern-college-dorm-room-with-cardboard-boxes-and-luggages.jpg?s=612x612&w=0&k=20&c=utbpq_YUxMluRnVkvMDVr33XF3XOHkcBNo9H40fe3u4=",
+      "managerId": 110
+    }
+  ],
+
+  "rooms": [
+    { "id": 1, "roomNo": "101", "capacity": 3, "occupied": 1, "price": 4500, "hostelId": 1 }
+  ],
+
+  "students": [
+    { "id": 1, "name": "Jay Patel", "mobile": "99999999", "roomId": 1, "hostelId": 1 }
+  ],
+
+  "inquiries": [
+    { "id": 1, "name": "Seeker Name", "mobile": "8888888888", "message": "I want to join", "hostelId": 1 }
+  ]
+}

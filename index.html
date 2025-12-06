@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hostel Finder</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <header class="navbar">
+        <h1 class="logo">🏠 HostelFinder</h1>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Hostels</a>
+            <a href="#">Contact</a>
+            <button class="login-btn">Login / Register</button>
+        </nav>
+    </header>
+
+    <!-- Hero section -->
+    <section class="hero">
+        <h2>Your Perfect Hostel, Just One Click Away</h2>
+        <p>Search from hundreds of hostels managed by real hostel owners</p>
+
+        <div class="search-box">
+            <input type="text" id="search" placeholder="Enter City or Hostel Name">
+            <button onclick="searchFun()">Search</button>
+        </div>
+    </section>
+
+    <!-- Hostel Cards -->
+    <section class="cards-section">
+        <h2>Popular Hostels</h2>
+        <div class="cards">
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 HostelFinder | Connecting Students & Hostels</p>
+    </footer>
+
+    <script src="api/api.js"></script>
+    <script src="api/hostels.js"></script>
+
+    <script>
+        // Search fun
+        let searchTxt = document.getElementById('search');
+        async function searchFun() {
+            if(searchTxt.value.length>=3){
+                let data = await getHostel();
+                let newArr=data.filter(obj=>{
+                    return obj.name === searchTxt.value;
+                })
+                console.log(newArr);
+            }
+        }
+
+        // Card creation
+        let cardCon = document.querySelector('.cards');
+        async function load() {
+            let data = await getHostelLimit();
+            makeCards(data)
+        }
+
+        function makeCards(data) {
+            data.forEach(obj => {
+                let card = document.createElement('div');
+                card.setAttribute('class', 'card')
+                card.innerHTML = `
+                    <div class="img-box">
+                    <img src="${obj.image}"
+                        alt="">
+                        </div>
+                    <h3>${obj.name}</h3>
+                    <p>Location: ${obj.city}</p>
+                    <button class="view-btn" onclick="fullDetails(${obj.id})">View Details</button>
+                `;
+                cardCon.append(card);
+            });
+        }
+
+        (()=>load())()
+
+        async function fullDetails(hostelID) {
+            const data = await getDetails(hostelID);
+            localStorage.setItem('detailOfHostel',JSON.stringify(data))
+            window.open('http://127.0.0.1:5500/hostel-details.html','_self')
+        }
+
+    </script>
+
+</body>
+
+</html>

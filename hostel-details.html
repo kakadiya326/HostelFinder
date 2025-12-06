@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hostel Details</title>
+    <link rel="stylesheet" href="css/hostel-details.css">
+</head>
+
+<body>
+
+    <header class="navbar">
+        <h1 class="logo">🏠 HostelFinder</h1>
+    </header>
+
+    <div class="container">
+
+
+
+    </div>
+
+    <footer>
+        <p>© 2025 HostelFinder | Connecting Students & Hostels</p>
+    </footer>
+
+    <script>
+        const hostelData = JSON.parse(localStorage.getItem('detailOfHostel'));
+        let container = document.querySelector('.container');
+
+        console.log(hostelData);
+
+        let imageCon = document.createElement('div');
+        imageCon.setAttribute('class', 'image-box');
+        imageCon.innerHTML = `<img src="${hostelData.image}" alt="">`;
+
+        let infoCon = document.createElement('div');
+        infoCon.setAttribute('class', 'info-box');
+
+        let ul = document.createElement('ul');
+        hostelData.facilities.forEach(val => {
+            let li = document.createElement('li');
+            li.innerText = val;
+            ul.append(li);
+        });
+
+        infoCon.innerHTML = `
+            <h2>${hostelData.name}</h2>
+            <p class="location">${hostelData.location}</p>
+            <h3>Facilities</h3>
+        `;
+
+        infoCon.append(ul);   // ⭐ Correct way to insert the dynamic UL
+
+        infoCon.innerHTML += `
+            <h3>Price</h3>
+            <p class="price">₹${hostelData.price} / month</p>
+            <button class="contact-btn">Contact Manager</button>
+        `;
+
+        container.append(imageCon, infoCon);
+
+    </script>
+</body>
+
+</html>
