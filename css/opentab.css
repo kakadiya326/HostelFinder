@@ -1,0 +1,15 @@
+.openedTab::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0px;
+    width: 100%;
+    display: inline;
+    height: 2px;
+    background-color: #0077ff;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+.openedTab:hover::after{
+    transform: scaleX(1);
+}

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hostel Listings</title>
+    <link rel="stylesheet" href="css/navBar.css">
+    <link rel="stylesheet" href="css/hostels.css">
+    <link rel="stylesheet" href="css/opentab.css">
+
+</head>
+
+<body>
+
+    <header class="navbar">
+        <h1 class="logo">🏠 HostelFinder</h1>
+        <nav>
+            <a href="/index.html" class="openedTab">Home</a>
+            <a href="/hostel.html" class="openedTab">Hostels</a>
+            <a href="#" class="openedTab">Contact</a>
+            <button class="login-btn">Login / Register</button>
+        </nav>
+    </header>
+
+    <div class="container">
+
+        <aside class="filters">
+            <button class="apply-btn" onclick="applyFilterToHostel()">Apply Filters</button>
+
+            <h3>Filters</h3>
+
+            <label>City:</label>
+            <select>
+                <option value="all" selected>all</option>
+            </select>
+
+            <label>Price Range:</label>
+            <div class="range-slider">
+                <input type="range" min="2000" step="500" id="range" max="10000">
+                <span id="rangeValue"></span>
+            </div>
+
+            <label>Facilities:</label>
+            <div class="checkBoxs">
+                <label><input type="checkbox" value="Mess $ Canteen" checked> Mess & Canteen</label>
+                <label><input type="checkbox" value="Security" checked> Security</label>
+                <label><input type="checkbox" value="Laundry" checked> Laundry</label>
+                <label><input type="checkbox" value="Parking"> Parking</label>
+                <label><input type="checkbox" value="Wifi"> WiFi</label>
+                <label><input type="checkbox" value="AC Rooms"> AC Rooms</label>
+                <label><input type="checkbox" value="Hot Water"> Hot Water</label>
+                <label><input type="checkbox" value="CCTV"> CCTV</label>
+                <label><input type="checkbox" value="Gym"> Gym</label>
+                <label><input type="checkbox" value="Attached Bathroom"> Attached Bathroom</label>
+            </div>
+
+
+        </aside>
+
+
+        <section class="cards">
+
+        </section>
+
+    </div>
+
+    <script src="api/api.js"></script>
+    <script src="api/hostels.js"></script>
+    <script>
+        //select city wise
+        let selectTag = document.getElementsByTagName('select')[0];
+        let cardContainer = document.querySelector('.cards');
+        const range = document.getElementById("range");
+        const rangeValue = document.getElementById("rangeValue");
+        let checkBoxs = document.querySelectorAll('.checkBoxs input');
+        let arrOfFacility = [];
+
+        let data = [];
+        let filteredData = [];
+        async function loadHostels() {
+            data = await getHostel();
+            makeCards(data);
+            makeCityOption(data);
+        }
+
+        //Make Card of hostel data
+        function makeCards(data) {
+            cardContainer.innerHTML = '';
+            data.forEach(obj => {
+                let card = document.createElement('div');
+                card.setAttribute('class', 'card');
+                card.innerHTML = `
+                    <img src="${obj.image}">
+                    <div class="content">
+                        <h3>${obj.name}</h3>
+                        <p class="location">${obj.location}</p>
+                        <p class="price">₹${obj.price} / month</p>
+                        <button class="view-btn" onclick="fullDetails(${obj.id})">View Details</button>
+                    </div>
+                `;
+                cardContainer.append(card);
+            });
+        }
+
+        //View Detials button - redirect to hostel-details.html page
+        async function fullDetails(id) {
+            const data = await getDetails(id);
+            localStorage.setItem('detailOfHostel', JSON.stringify(data));
+            window.open('http://127.0.0.1:5500/hostel-details.html', '_self');
+        }
+
+        //Range Tag
+        function updateBubble() {
+            rangeValue.innerText = range.value;
+            const percent = (range.value - range.min) / (range.max - range.min);
+            const pos = percent * range.offsetWidth;
+            rangeValue.style.left = pos + "px";
+        }
+        range.addEventListener("input", updateBubble);
+        updateBubble();
+
+
+        //Create options of city
+        function makeCityOption(data) {
+            let cityArr = [];
+            data.forEach(obj => {
+                cityArr.includes(obj.city) ? 'no' : cityArr.push(obj.city)
+            })
+            for (let val of cityArr) {
+                let option = document.createElement('option');
+                option.value = val;
+                option.innerText = val;
+                selectTag.append(option);
+            }
+        }
+
+        //Funcationality to apply filters by city, price, Facilities
+        function addFilters() {
+            filteredData = data;
+            let cityFilterd = [];
+            let priceFilter = [];
+            let facilityFilter = [];
+
+
+            //filter city logic
+            if (selectTag.value == 'all') {
+                cityFilterd = filteredData;
+            } else {
+                cityFilterd = data.filter((obj) => {
+                    return obj.city == selectTag.value
+                })
+            }
+
+            //filter price logic
+            if (cityFilterd.length === filteredData.length) {
+                priceFilter = filteredData.filter((vv) => {
+                    return vv.price <= range.value;
+                });
+            } else {
+                priceFilter = cityFilterd.filter((vv) => {
+                    return vv.price <= range.value;
+                });
+            }
+
+            //track checkbox is checked
+            arrOfFacility = [];
+            checkBoxs.forEach(ele => {
+                if (ele.checked) {
+                    arrOfFacility.push(ele.value);
+                }
+            });
+
+            //filter Facilities logic
+
+            //apply filter to priceFilter arr because city is all and price is by default 6000
+            facilityFilter = priceFilter.filter((obj) => {
+                let check = arrOfFacility.some(fac => {
+                    return obj.facilities.some(item => {
+                        return item.toLowerCase().includes(fac.toLowerCase());
+                    })
+                })
+                return check
+            });
+
+            console.log({ cityFilterd });
+            console.log({ priceFilter });
+            console.log({ facilityFilter });
+            if (facilityFilter.length <= 0) {
+                cardContainer.innerHTML = '<h1 class="sorrymsg"><b>Sorry,No match found!!😭😓</b></h1>'
+            } else if (facilityFilter.length != 0) {
+                makeCards(priceFilter);
+            } else if (priceFilter.length != 0) {
+                makeCards(facilityFilter);
+            } else {
+                makeCards(cityFilterd);
+            }
+
+        }
+
+
+        function applyFilterToHostel() {
+            addFilters();
+        }
+
+        //Load All hostel data at a time
+        loadHostels();
+    </script>
+</body>
+
+</html>

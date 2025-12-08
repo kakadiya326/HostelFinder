@@ -6,22 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hostel Finder</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/navBar.css">
+    <link rel="stylesheet" href="css/opentab.css">
 </head>
 
 <body>
 
-    <!-- Navbar -->
     <header class="navbar">
         <h1 class="logo">🏠 HostelFinder</h1>
         <nav>
-            <a href="#">Home</a>
-            <a href="#">Hostels</a>
-            <a href="#">Contact</a>
+            <a href="#" class="openedTab">Home</a>
+            <a href="/hostel.html" class="openedTab">Hostels</a>
+            <a href="#" class="openedTab">Contact</a>
             <button class="login-btn">Login / Register</button>
         </nav>
     </header>
 
-    <!-- Hero section -->
     <section class="hero">
         <h2>Your Perfect Hostel, Just One Click Away</h2>
         <p>Search from hundreds of hostels managed by real hostel owners</p>
@@ -32,7 +32,6 @@
         </div>
     </section>
 
-    <!-- Hostel Cards -->
     <section class="cards-section">
         <h2>Popular Hostels</h2>
         <div class="cards">
@@ -40,7 +39,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <p>© 2025 HostelFinder | Connecting Students & Hostels</p>
     </footer>
@@ -72,7 +70,6 @@
                 if(newArr.length<=0){
                     cardCon.innerHTML="<h1><b>No Match!!😭😓</b></h1>";
                 }else{
-                    console.log(newArr.length);
                     makeCards(newArr);
                 }
             }
@@ -96,7 +93,7 @@
                         alt="">
                         </div>
                     <h3>${obj.name}</h3>
-                    <p>Location: ${obj.city}</p>
+                    <p>📍 Location: ${obj.city}</p>
                     <button class="view-btn" onclick="fullDetails(${obj.id})">View Details</button>
                 `;
                 cardCon.append(card);
