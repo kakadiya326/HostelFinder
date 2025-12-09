@@ -21,7 +21,7 @@ body {
   top: -80px;
   left: 50%;
   transform: translateX(-50%);
-  animation: msgshow 3s ease;
+  animation: msgshow 1s ease-in;
   width: fit-content;
   border-radius: 20px;
   padding: 20px 40px;
@@ -30,9 +30,13 @@ body {
 }
 
 @keyframes msgshow {
+  0%{
+    top: -10px;
+    opacity: 0;
+  }
 
   90% {
-    top: 20px;
+    top: 15px;
     opacity: 1;
   }
 
@@ -60,8 +64,6 @@ body {
 .error {
   background-color: red;
 }
-
-
 
 .wrapper {
   background: rgba(255, 255, 255, 0.18);

@@ -1,4 +1,4 @@
-BASE_URL = "http://localhost:3000";
+BASE_URL = "https://hostelfinder-backend-1t13.onrender.com";
 
 async function apiGet(url) {
     const res = await fetch(`${BASE_URL}/${url}`);
