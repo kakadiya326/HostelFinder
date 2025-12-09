@@ -18,7 +18,7 @@
             <a href="#" class="openedTab">Home</a>
             <a href="/hostel.html" class="openedTab">Hostels</a>
             <a href="#" class="openedTab">Contact</a>
-            <button class="login-btn">Login / Register</button>
+            <button class="login-btn" onclick="window.open('login.html','_self')">Login / Register</button>
         </nav>
     </header>
 
@@ -52,7 +52,7 @@
         // Search fun
         let searchTxt = document.getElementById('search');
         searchTxt.addEventListener('input', () => {
-            if (searchTxt.value == ' ' || searchTxt.value.length === 0){
+            if (searchTxt.value == ' ' || searchTxt.value.length === 0) {
                 load();
             }
         })
@@ -67,16 +67,16 @@
                         obj.city.toLowerCase().includes(searchValue)
                     );
                 })
-                if(newArr.length<=0){
-                    cardCon.innerHTML="<h1><b>No Match!!😭😓</b></h1>";
-                }else{
+                if (newArr.length <= 0) {
+                    cardCon.innerHTML = "<h1><b>No Match!!😭😓</b></h1>";
+                } else {
                     makeCards(newArr);
                 }
             }
         }
 
         // Card creation
-        
+
         async function load() {
             let data = await getHostelLimit();
             makeCards(data)
