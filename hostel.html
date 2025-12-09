@@ -28,7 +28,7 @@
         <aside class="filters">
             <button class="apply-btn" onclick="applyFilterToHostel()">Apply Filters</button>
 
-            <h3>Filters</h3>
+            <h3>Filters <span id="recordCount"></span></h3>
 
             <label>City:</label>
             <select>
@@ -74,13 +74,17 @@
         const range = document.getElementById("range");
         const rangeValue = document.getElementById("rangeValue");
         let checkBoxs = document.querySelectorAll('.checkBoxs input');
+        let recordCount = document.getElementById('recordCount');
         let arrOfFacility = [];
 
         let data = [];
         let filteredData = [];
         async function loadHostels() {
             data = await getHostel();
-            makeCards(data);
+            limitedData = await getHostelLimit();
+            recordCount.innerText = `Total : ${data.length} records`;
+            recordCount.style.backgroundColor = '#067f22';
+            makeCards(limitedData);
             makeCityOption(data);
         }
 
@@ -187,13 +191,24 @@
             console.log({ priceFilter });
             console.log({ facilityFilter });
             if (facilityFilter.length <= 0) {
-                cardContainer.innerHTML = '<h1 class="sorrymsg"><b>Sorry,No match found!!😭😓</b></h1>'
+                cardContainer.innerHTML = '<h1 class="sorrymsg"><b>Sorry,No match found!!😭😓</b></h1>';
+                recordCount.innerText = `Found : ${0} records`;
+                recordCount.style.backgroundColor = 'red';
             } else if (facilityFilter.length != 0) {
                 makeCards(priceFilter);
+                recordCount.innerText = `Found : ${priceFilter.length} records`;
+                recordCount.style.backgroundColor = '#067f22';
+
             } else if (priceFilter.length != 0) {
                 makeCards(facilityFilter);
+                recordCount.innerText = `Found : ${facilityFilter.length} records`;
+                recordCount.style.backgroundColor = '#067f22';
+
             } else {
                 makeCards(cityFilterd);
+                recordCount.innerText = `Found : ${cityFilterd.length} records`;
+                recordCount.style.backgroundColor = '#067f22';
+
             }
 
         }

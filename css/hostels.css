@@ -25,6 +25,16 @@ body {
     margin-bottom: 15px;
 }
 
+#recordCount{
+    width: fit-content;
+    padding: 8px;
+    box-sizing: border-box;
+    border-radius: 12px;
+    background-color: #067f22;
+    color: white;
+    font-size: 12px;
+}
+
 .filters select,
 .filters input {
     width: 100%;
