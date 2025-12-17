@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | Hostel Managers</title>
+  <link rel="stylesheet" href="css/login.css">
+</head>
+
+<body>
+  <div id="msg"></div>
+  <div class="menu-button">
+    <button id="loginBtn" class="tab active">Login</button>
+    <button id="registerBtn" class="tab">Register</button>
+  </div>
+
+  <div class="wrapper">
+    <form class="form-box">
+      <h2>Manager Login</h2>
+
+      <input type="email" placeholder="Email">
+      <input type="password" placeholder="Password">
+
+      <button type="submit" class="btn" onclick="loginFun(event)">Login</button>
+
+      <!-- <p class="switch">Don’t have an account? <button>Register</button></p> -->
+    </form>
+    <form class="form-box">
+      <h2>Manager Register</h2>
+      <input type="text" name="name" id="name" placeholder="Enter your name...">
+      <input type="email" placeholder="Enter your email...">
+      <input type="tel" placeholder="Enter your phone...">
+      <input type="password" id="psw" placeholder="Enter strong password...">
+      <input type="password" id="conf" placeholder="Confirm password...">
+
+      <button type="submit" class="btn" onclick="registerFun(event)">Register</button>
+
+    </form>
+    <script src="../api/api.js"></script>
+    <script src="../api/manager.js"></script>
+    <script>
+      const loginBtn = document.getElementById("loginBtn");
+      const registerBtn = document.getElementById("registerBtn");
+      const message = document.getElementById("msg");
+      const form = document.querySelectorAll('form');
+      form[1].classList.add("hidden");
+
+      loginBtn.addEventListener("click", () => {
+        loginBtn.classList.add("active");
+        registerBtn.classList.remove("active");
+        form[0].classList.remove("hidden");
+        form[1].classList.add("hidden");
+      });
+
+      function showMessage(text, type) {
+        message.innerText = text;
+        message.classList.remove("success", "error");
+
+        if (type === "success") message.classList.add("success");
+        if (type === "error") message.classList.add("error");
+
+        // Restart animation every time
+        message.style.animation = "none";
+        message.offsetHeight;
+        message.style.animation = "msgshow 2s ease";
+      }
+
+      async function loginFun(e) {
+        e.preventDefault();
+
+        let email = form[0][0].value.trim();
+        let password = form[0][1].value.trim();
+
+        if (!email || !password) {
+          showMessage("Please enter email & password", "error");
+          return;
+        }
+
+        try {
+          let data = await getManager({ email, password });
+
+          console.log("Response:", data);
+
+          if (data && data.length > 0) {
+            showMessage("Login successful", "success");
+
+            setInterval(() => {
+              window.localStorage.setItem('managerData', JSON.stringify(data));
+              window.close();
+              window.open('dashboard.html', '_blank');
+            }, 2000)
+          } else {
+            showMessage("User not found", "error");
+          }
+        } catch (err) {
+          console.error("Server not responding", err);
+          showMessage("Server not responding. Please try again later.", "error");
+        }
+      }
+
+
+      registerBtn.addEventListener("click", () => {
+        registerBtn.classList.add("active");
+        loginBtn.classList.remove("active");
+        form[0].classList.add("hidden");
+        form[1].classList.remove("hidden");
+      });
+
+      async function registerFun(e) {
+        e.preventDefault();
+        let name = form[1][0].value.trim();
+        let email = form[1][1].value.trim();
+        let tel = form[1][2].value.trim();
+        let password = form[1][3].value.trim();
+        let confPass = form[1][4].value.trim();
+
+        if (password !== confPass) {
+          showMessage('Password doesn\'t match', 'error');
+          return;
+        }
+
+        if (!name || !email || !password) {
+          showMessage('Your name, email and password is required', 'error');
+          return;
+        }
+
+        let res = await postManager({ name, email, tel, password });
+        if (res.status == 201) {
+          showMessage('Registered Successufuly', 'success');
+          form[1].classList.add("hidden");
+          form[0].classList.remove("hidden");
+        }
+        console.log(res);
+      }
+
+    </script>
+
+  </div>
+</body>
+
+</html>

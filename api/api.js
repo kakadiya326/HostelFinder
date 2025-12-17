@@ -14,7 +14,7 @@ async function apiPost(url, data) {
     const res = await fetch(`${BASE_URL}/${url}`, {
         method: "POST",
         headers: {
-            'Content-Type': 'Application-json'
+            'Content-Type': 'Application/json'
         },
         body: JSON.stringify(data)
     });
@@ -25,7 +25,7 @@ async function apiPut(url, data) {
     const res = await fetch(`${BASE_URL}/${url}${id}`, {
         method: "PUT",
         headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "Application/json",
         },
         body: JSON.stringify(data)
     });
