@@ -1,0 +1,13 @@
+.form {
+    width: 400px;
+    margin: 40px auto;
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+}
+
+.form input, textarea, button {
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+}

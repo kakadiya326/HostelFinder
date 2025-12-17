@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Manager Dashboard</title>
+    <link rel="stylesheet" href="css/navBar.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">HostelManager</div>
+        <ul>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="allHostels.html">My Hostels</a></li>
+            <li><a href="addHostel.html">Add Hostel</a></li>
+
+        </ul>
+    </nav>
+
+
+    <div class="dashboard">
+        <div class="card">
+            <h3>Total Hostels</h3>
+            <p>3</p>
+        </div>
+
+        <div class="card">
+            <h3>Rooms Full</h3>
+            <p>12</p>
+        </div>
+
+        <div class="card">
+            <h3>Rooms Available</h3>
+            <p>8</p>
+        </div>
+
+        <div class="card">
+            <h3>Total Students</h3>
+            <p>30</p>
+        </div>
+    </div>
+
+</body>
+
+<script>
+    let ul = document.querySelector('ul');
+    let li = document.createElement('li');
+    let atag = document.createElement('a');
+
+    
+
+    atag.href = 'login.html';
+    atag.innerText = 'Login';
+    li.append(atag);
+    ul.append(li);
+</script>
+
+</html>
