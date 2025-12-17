@@ -1,6 +1,6 @@
 {
   "users": [
-    { "id": 1, "name": "Ravi Patel", "email": "ravi@example.com", "password": "12345" }
+    { "id": 1, "name": "Chiranj Patel", "email": "chiranj@example.com", "password": "12345" }
   ],
 
   "manager":[
@@ -9,7 +9,14 @@
       "name":"Chiranj Patel",
       "email":"chiranj@example.com",
       "phone":"9016291573",
-      "password" : "12345"
+      "password" : "91573"
+    },
+    {
+      "id":102,
+      "name":"Prince Patel",
+      "email":"prince@example.com",
+      "phone":"9408908819",
+      "password" : "08819"
     }
   ],
 

@@ -26,7 +26,8 @@ async function addHostel(roomData) {
 
 //Update hostel's data 
 async function updateHostel(id,updatedData) {
-    await apiPut(`hostels/${id}`,updatedData)
+    await apiPut(`hostels/${id}`, updatedData)
+    getHostel();
 }
 
 
