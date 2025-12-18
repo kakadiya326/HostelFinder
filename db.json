@@ -1,8 +1,4 @@
 {
-  "users": [
-    { "id": 1, "name": "Chiranj Patel", "email": "chiranj@example.com", "password": "12345" }
-  ],
-
   "manager":[
     {
       "id":101,
@@ -70,7 +66,7 @@
       ],
       "price": 5500,
       "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_R51dPZEkFi1bBLTkHsV5Pi76B8mCi_7FhQ&s",
-      "managerId": 103
+      "managerId": 101
     },
     {
       "id": 4,
@@ -87,7 +83,7 @@
       ],
       "price": 4800,
       "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiWCSW_ZcLLvsrKBq632HVu-ZosC51QjesZQ&s",
-      "managerId": 104
+      "managerId": 102
     },
     {
       "id": 5,
@@ -104,7 +100,7 @@
       ],
       "price": 4200,
       "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsHg37hv7CgSVkADMYKY2JodqHj_YpN74A6w&s",
-      "managerId": 105
+      "managerId": 101
     },
     {
       "id": 6,
@@ -121,7 +117,7 @@
       ],
       "price": 6500,
       "image": "https://qph.cf2.quoracdn.net/main-qimg-86cc9d54f31a6c312769c9191071a216-lq",
-      "managerId": 106
+      "managerId": 102
     },
     {
       "id": 7,
@@ -138,7 +134,7 @@
       ],
       "price": 5300,
       "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRmJfdwOzwcmrC7byfn08I5DhNUMJq9hBIVg&s",
-      "managerId": 107
+      "managerId": 101
     },
     {
       "id": 8,
@@ -155,7 +151,7 @@
       ],
       "price": 4600,
       "image": "https://media.gettyimages.com/id/1398803655/photo/bunkbeds-in-hostel-room.jpg?s=612x612&w=gi&k=20&c=S1ocRh3nK2MxZjItSSjDy_lX68r2SAQzHQgn390cJAY=",
-      "managerId": 108
+      "managerId": 102
     },
     {
       "id": 9,
@@ -172,7 +168,7 @@
       ],
       "price": 5200,
       "image": "https://qph.cf2.quoracdn.net/main-qimg-fc23f6243e0fc8a39da8d12aa7519e07-pjlq",
-      "managerId": 109
+      "managerId": 101
     },
     {
       "id": 10,
@@ -189,16 +185,218 @@
       ],
       "price": 8900,
       "image": "https://media.istockphoto.com/id/1414156193/photo/modern-college-dorm-room-with-cardboard-boxes-and-luggages.jpg?s=612x612&w=0&k=20&c=utbpq_YUxMluRnVkvMDVr33XF3XOHkcBNo9H40fe3u4=",
-      "managerId": 110
+      "managerId": 101
     }
   ],
 
   "rooms": [
-    { "id": 1, "roomNo": "101", "capacity": 3, "occupied": 1, "price": 4500, "hostelId": 1 }
+    { "id": 1, "roomNo": "101", "capacity": 3, "occupied": 1, "price": 4500, "hostelId": 1 },
+    { "id": 2, "roomNo": "102", "capacity": 5, "occupied": 2, "price": 4500, "hostelId": 1 },
+
+    { "id": 3, "roomNo": "101", "capacity": 3, "occupied": 1, "price": 4500, "hostelId": 2 },
+    { "id": 5, "roomNo": "102", "capacity": 6, "occupied": 4, "price": 4500, "hostelId": 2 },
+    { "id": 4, "roomNo": "103", "capacity": 2, "occupied": 1, "price": 4500, "hostelId": 2 },
+    { "id": 6, "roomNo": "104", "capacity": 7, "occupied": 3, "price": 4500, "hostelId": 2 },
+    { "id": 7, "roomNo": "105", "capacity": 4, "occupied": 1, "price": 4500, "hostelId": 2 },
+
+    { "id": 8, "roomNo": "101", "capacity": 5, "occupied": 3, "price": 4500, "hostelId": 3 },
+    { "id": 9, "roomNo": "102", "capacity": 2, "occupied": 1, "price": 4500, "hostelId": 3 },
+    { "id": 10, "roomNo": "103", "capacity": 4, "occupied": 2, "price": 4500, "hostelId": 3 },
+    { "id": 11, "roomNo": "104", "capacity": 3, "occupied": 3, "price": 4500, "hostelId": 3 },
+
+    { "id": 12, "roomNo": "101", "capacity": 3, "occupied": 1, "price": 4500, "hostelId": 4 },
+    { "id": 13, "roomNo": "102", "capacity": 5, "occupied": 5, "price": 4500, "hostelId": 4 },
+    { "id": 14, "roomNo": "103", "capacity": 3, "occupied": 3, "price": 4500, "hostelId": 4 },
+    { "id": 15, "roomNo": "104", "capacity": 4, "occupied": 3, "price": 4500, "hostelId": 4 },
+
+    { "id": 16, "roomNo": "105", "capacity": 3, "occupied": 3, "price": 4500, "hostelId": 3 },
+    { "id": 17, "roomNo": "106", "capacity": 4, "occupied": 2, "price": 4500, "hostelId": 3 },
+
+    { "id": 18, "roomNo": "101", "capacity": 3, "occupied": 3, "price": 4500, "hostelId": 5 },
+    { "id": 19, "roomNo": "102", "capacity": 2, "occupied": 1, "price": 4500, "hostelId": 5 },
+    { "id": 20, "roomNo": "103", "capacity": 4, "occupied": 4, "price": 4500, "hostelId": 5 },
+    { "id": 21, "roomNo": "104", "capacity": 3, "occupied": 2, "price": 4500, "hostelId": 5 },
+
+    { "id": 22, "roomNo": "101", "capacity": 3, "occupied": 1, "price": 4500, "hostelId": 6 },
+    { "id": 23, "roomNo": "102", "capacity": 4, "occupied": 2, "price": 4500, "hostelId": 6 },
+    { "id": 24, "roomNo": "103", "capacity": 3, "occupied": 3, "price": 4500, "hostelId": 6 },
+    { "id": 25, "roomNo": "104", "capacity": 2, "occupied": 2, "price": 4500, "hostelId": 6 },
+    { "id": 26, "roomNo": "105", "capacity": 4, "occupied": 3, "price": 4500, "hostelId": 6 },
+    { "id": 27, "roomNo": "106", "capacity": 3, "occupied": 3, "price": 4500, "hostelId": 6 },
+
+    { "id": 28, "roomNo": "101", "capacity": 3, "occupied": 3, "price": 4500, "hostelId": 7 },
+    { "id": 29, "roomNo": "102", "capacity": 2, "occupied": 1, "price": 4500, "hostelId": 7 },
+    { "id": 30, "roomNo": "103", "capacity": 3, "occupied": 3, "price": 4500, "hostelId": 7 },
+    { "id": 31, "roomNo": "104", "capacity": 4, "occupied": 4, "price": 4500, "hostelId": 7 },
+    { "id": 32, "roomNo": "105", "capacity": 3, "occupied": 2, "price": 4500, "hostelId": 7 },
+
+    { "id": 33, "roomNo": "101", "capacity": 3, "occupied": 2, "price": 4500, "hostelId": 8 },
+    { "id": 34, "roomNo": "102", "capacity": 3, "occupied": 3, "price": 4500, "hostelId": 8 },
+    { "id": 35, "roomNo": "103", "capacity": 3, "occupied": 2, "price": 4500, "hostelId": 8 },
+    { "id": 36, "roomNo": "104", "capacity": 4, "occupied": 4, "price": 4500, "hostelId": 8 },
+    { "id": 37, "roomNo": "105", "capacity": 7, "occupied": 5, "price": 4500, "hostelId": 8 },
+    { "id": 38, "roomNo": "106", "capacity": 3, "occupied": 3, "price": 4500, "hostelId": 8 },
+
+    { "id": 39, "roomNo": "101", "capacity": 3, "occupied": 3, "price": 4500, "hostelId": 9 },
+    { "id": 40, "roomNo": "102", "capacity": 3, "occupied": 3, "price": 4500, "hostelId": 9 },
+    { "id": 41, "roomNo": "103", "capacity": 4, "occupied": 4, "price": 4500, "hostelId": 9 },
+    { "id": 42, "roomNo": "104", "capacity": 7, "occupied": 6, "price": 4500, "hostelId": 9 },
+
+    { "id": 43, "roomNo": "101", "capacity": 3, "occupied": 3, "price": 4500, "hostelId": 10 },
+    { "id": 44, "roomNo": "102", "capacity": 3, "occupied": 3, "price": 4500, "hostelId": 10 },
+    { "id": 45, "roomNo": "103", "capacity": 5, "occupied": 4, "price": 4500, "hostelId": 10 },
+    { "id": 46, "roomNo": "104", "capacity": 3, "occupied": 3, "price": 4500, "hostelId": 10 },
+    { "id": 47, "roomNo": "105", "capacity": 3, "occupied": 1, "price": 4500, "hostelId": 10 },
+    { "id": 48, "roomNo": "106", "capacity": 7, "occupied": 4, "price": 4500, "hostelId": 10 },
+    { "id": 49, "roomNo": "107", "capacity": 3, "occupied": 3, "price": 4500, "hostelId": 10 },
+    { "id": 50, "roomNo": "108", "capacity": 5, "occupied": 2, "price": 4500, "hostelId": 10 },
+    { "id": 51, "roomNo": "109", "capacity": 7, "occupied": 4, "price": 4500, "hostelId": 10 }
   ],
 
-  "students": [
-    { "id": 1, "name": "Jay Patel", "mobile": "99999999", "roomId": 1, "hostelId": 1 }
+    "students": [
+    { "id": 1, "name": "Jay Patel", "mobile": "9000000001", "roomId": 1, "hostelId": 1 },
+    { "id": 2, "name": "Amit Shah", "mobile": "9000000002", "roomId": 2, "hostelId": 1 },
+    { "id": 3, "name": "Rahul Mehta", "mobile": "9000000003", "roomId": 2, "hostelId": 1 },
+
+    { "id": 4, "name": "Kunal Joshi", "mobile": "9000000004", "roomId": 3, "hostelId": 2 },
+    { "id": 5, "name": "Vivek Patel", "mobile": "9000000005", "roomId": 5, "hostelId": 2 },
+    { "id": 6, "name": "Rohan Desai", "mobile": "9000000006", "roomId": 5, "hostelId": 2 },
+    { "id": 7, "name": "Nikhil Shah", "mobile": "9000000007", "roomId": 5, "hostelId": 2 },
+    { "id": 8, "name": "Sahil Jain", "mobile": "9000000008", "roomId": 5, "hostelId": 2 },
+    { "id": 9, "name": "Arjun Verma", "mobile": "9000000009", "roomId": 4, "hostelId": 2 },
+    { "id": 10, "name": "Yash Patel", "mobile": "9000000010", "roomId": 6, "hostelId": 2 },
+    { "id": 11, "name": "Dhruv Shah", "mobile": "9000000011", "roomId": 6, "hostelId": 2 },
+    { "id": 12, "name": "Parth Mehta", "mobile": "9000000012", "roomId": 6, "hostelId": 2 },
+    { "id": 13, "name": "Harsh Patel", "mobile": "9000000013", "roomId": 7, "hostelId": 2 },
+
+    { "id": 14, "name": "Akash Kumar", "mobile": "9000000014", "roomId": 8, "hostelId": 3 },
+    { "id": 15, "name": "Manish Singh", "mobile": "9000000015", "roomId": 8, "hostelId": 3 },
+    { "id": 16, "name": "Deep Patel", "mobile": "9000000016", "roomId": 8, "hostelId": 3 },
+    { "id": 17, "name": "Ankit Verma", "mobile": "9000000017", "roomId": 9, "hostelId": 3 },
+    { "id": 18, "name": "Ravi Kumar", "mobile": "9000000018", "roomId": 10, "hostelId": 3 },
+    { "id": 19, "name": "Suresh Yadav", "mobile": "9000000019", "roomId": 10, "hostelId": 3 },
+    { "id": 20, "name": "Pankaj Mishra", "mobile": "9000000020", "roomId": 11, "hostelId": 3 },
+    { "id": 21, "name": "Nitin Gupta", "mobile": "9000000021", "roomId": 11, "hostelId": 3 },
+    { "id": 22, "name": "Rohit Sharma", "mobile": "9000000022", "roomId": 11, "hostelId": 3 },
+    { "id": 23, "name": "Aman Jain", "mobile": "9000000023", "roomId": 16, "hostelId": 3 },
+    { "id": 24, "name": "Shubham Patel", "mobile": "9000000024", "roomId": 16, "hostelId": 3 },
+    { "id": 25, "name": "Varun Mehta", "mobile": "9000000025", "roomId": 16, "hostelId": 3 },
+    { "id": 26, "name": "Sagar Shah", "mobile": "9000000026", "roomId": 17, "hostelId": 3 },
+    { "id": 27, "name": "Ritesh Solanki", "mobile": "9000000027", "roomId": 17, "hostelId": 3 },
+
+    { "id": 28, "name": "Karan Patel", "mobile": "9000000028", "roomId": 12, "hostelId": 4 },
+    { "id": 29, "name": "Smit Shah", "mobile": "9000000029", "roomId": 13, "hostelId": 4 },
+    { "id": 30, "name": "Hitesh Mehta", "mobile": "9000000030", "roomId": 13, "hostelId": 4 },
+    { "id": 31, "name": "Jaydeep Solanki", "mobile": "9000000031", "roomId": 13, "hostelId": 4 },
+    { "id": 32, "name": "Meet Patel", "mobile": "9000000032", "roomId": 13, "hostelId": 4 },
+    { "id": 33, "name": "Rakesh Kumar", "mobile": "9000000033", "roomId": 13, "hostelId": 4 },
+    { "id": 34, "name": "Sunil Yadav", "mobile": "9000000034", "roomId": 14, "hostelId": 4 },
+    { "id": 35, "name": "Anil Sharma", "mobile": "9000000035", "roomId": 14, "hostelId": 4 },
+    { "id": 36, "name": "Vikas Gupta", "mobile": "9000000036", "roomId": 14, "hostelId": 4 },
+    { "id": 37, "name": "Aakash Jain", "mobile": "9000000037", "roomId": 15, "hostelId": 4 },
+    { "id": 38, "name": "Raj Malhotra", "mobile": "9000000038", "roomId": 15, "hostelId": 4 },
+    { "id": 39, "name": "Mohit Verma", "mobile": "9000000039", "roomId": 15, "hostelId": 4 },
+
+    { "id": 40, "name": "Neeraj Singh", "mobile": "9000000040", "roomId": 18, "hostelId": 5 },
+    { "id": 41, "name": "Pratik Patel", "mobile": "9000000041", "roomId": 18, "hostelId": 5 },
+    { "id": 42, "name": "Hemant Shah", "mobile": "9000000042", "roomId": 18, "hostelId": 5 },
+    { "id": 43, "name": "Ashish Mehta", "mobile": "9000000043", "roomId": 19, "hostelId": 5 },
+    { "id": 44, "name": "Rohit Jain", "mobile": "9000000044", "roomId": 20, "hostelId": 5 },
+    { "id": 45, "name": "Ajay Kumar", "mobile": "9000000045", "roomId": 20, "hostelId": 5 },
+    { "id": 46, "name": "Manoj Yadav", "mobile": "9000000046", "roomId": 20, "hostelId": 5 },
+    { "id": 47, "name": "Sandeep Mishra", "mobile": "9000000047", "roomId": 20, "hostelId": 5 },
+    { "id": 48, "name": "Viral Patel", "mobile": "9000000048", "roomId": 21, "hostelId": 5 },
+    { "id": 49, "name": "Bhavin Shah", "mobile": "9000000049", "roomId": 21, "hostelId": 5 },
+
+    { "id": 50, "name": "Chirag Patel", "mobile": "9000000050", "roomId": 22, "hostelId": 6 },
+    { "id": 51, "name": "Hardik Shah", "mobile": "9000000051", "roomId": 23, "hostelId": 6 },
+    { "id": 52, "name": "Sanjay Mehta", "mobile": "9000000052", "roomId": 23, "hostelId": 6 },
+    { "id": 53, "name": "Umesh Kumar", "mobile": "9000000053", "roomId": 24, "hostelId": 6 },
+    { "id": 54, "name": "Mahesh Patel", "mobile": "9000000054", "roomId": 24, "hostelId": 6 },
+    { "id": 55, "name": "Paresh Shah", "mobile": "9000000055", "roomId": 25, "hostelId": 6 },
+    { "id": 56, "name": "Nilesh Jain", "mobile": "9000000056", "roomId": 25, "hostelId": 6 },
+    { "id": 57, "name": "Ronak Mehta", "mobile": "9000000057", "roomId": 26, "hostelId": 6 },
+    { "id": 58, "name": "Keyur Patel", "mobile": "9000000058", "roomId": 26, "hostelId": 6 },
+    { "id": 59, "name": "Jignesh Shah", "mobile": "9000000059", "roomId": 26, "hostelId": 6 },
+    { "id": 60, "name": "Hiren Solanki", "mobile": "9000000060", "roomId": 27, "hostelId": 6 },
+    { "id": 61, "name": "Kishan Parmar", "mobile": "9000000061", "roomId": 27, "hostelId": 6 },
+    { "id": 62, "name": "Tushar Patel", "mobile": "9000000062", "roomId": 27, "hostelId": 6 },
+
+    { "id": 63, "name": "Alok Verma", "mobile": "9000000063", "roomId": 28, "hostelId": 7 },
+    { "id": 64, "name": "Rajat Singh", "mobile": "9000000064", "roomId": 28, "hostelId": 7 },
+    { "id": 65, "name": "Naveen Kumar", "mobile": "9000000065", "roomId": 28, "hostelId": 7 },
+    { "id": 66, "name": "Akhil Shah", "mobile": "9000000066", "roomId": 29, "hostelId": 7 },
+    { "id": 67, "name": "Yogesh Patel", "mobile": "9000000067", "roomId": 30, "hostelId": 7 },
+    { "id": 68, "name": "Bhavesh Mehta", "mobile": "9000000068", "roomId": 30, "hostelId": 7 },
+    { "id": 69, "name": "Saurabh Jain", "mobile": "9000000069", "roomId": 30, "hostelId": 7 },
+    { "id": 70, "name": "Gaurav Kumar", "mobile": "9000000070", "roomId": 31, "hostelId": 7 },
+    { "id": 71, "name": "Deepak Sharma", "mobile": "9000000071", "roomId": 31, "hostelId": 7 },
+    { "id": 72, "name": "Ketan Patel", "mobile": "9000000072", "roomId": 31, "hostelId": 7 },
+    { "id": 73, "name": "Manav Shah", "mobile": "9000000073", "roomId": 31, "hostelId": 7 },
+    { "id": 74, "name": "Praveen Mehta", "mobile": "9000000074", "roomId": 32, "hostelId": 7 },
+    { "id": 75, "name": "Sanjiv Solanki", "mobile": "9000000075", "roomId": 32, "hostelId": 7 },
+
+    { "id": 76, "name": "Rupal Patel", "mobile": "9000000076", "roomId": 33, "hostelId": 8 },
+    { "id": 77, "name": "Yatin Shah", "mobile": "9000000077", "roomId": 33, "hostelId": 8 },
+    { "id": 78, "name": "Anuj Mehta", "mobile": "9000000078", "roomId": 34, "hostelId": 8 },
+    { "id": 79, "name": "Sagar Jain", "mobile": "9000000079", "roomId": 34, "hostelId": 8 },
+    { "id": 80, "name": "Krunal Patel", "mobile": "9000000080", "roomId": 35, "hostelId": 8 },
+    { "id": 81, "name": "Nayan Shah", "mobile": "9000000081", "roomId": 35, "hostelId": 8 },
+    { "id": 82, "name": "Mayur Solanki", "mobile": "9000000082", "roomId": 36, "hostelId": 8 },
+    { "id": 83, "name": "Piyush Mehta", "mobile": "9000000083", "roomId": 36, "hostelId": 8 },
+    { "id": 84, "name": "Darshan Patel", "mobile": "9000000084", "roomId": 37, "hostelId": 8 },
+    { "id": 85, "name": "Himanshu Shah", "mobile": "9000000085", "roomId": 37, "hostelId": 8 },
+    { "id": 86, "name": "Rahul Jain", "mobile": "9000000086", "roomId": 37, "hostelId": 8 },
+    { "id": 87, "name": "Vijay Kumar", "mobile": "9000000087", "roomId": 37, "hostelId": 8 },
+    { "id": 88, "name": "Amit Mishra", "mobile": "9000000088", "roomId": 37, "hostelId": 8 },
+    { "id": 89, "name": "Dev Patel", "mobile": "9000000089", "roomId": 38, "hostelId": 8 },
+    { "id": 90, "name": "Jayesh Shah", "mobile": "9000000090", "roomId": 38, "hostelId": 8 },
+    { "id": 91, "name": "Tarun Mehta", "mobile": "9000000091", "roomId": 38, "hostelId": 8 },
+
+    { "id": 92, "name": "Sahil Kumar", "mobile": "9000000092", "roomId": 39, "hostelId": 9 },
+    { "id": 93, "name": "Kamal Patel", "mobile": "9000000093", "roomId": 39, "hostelId": 9 },
+    { "id": 94, "name": "Puneet Shah", "mobile": "9000000094", "roomId": 39, "hostelId": 9 },
+    { "id": 95, "name": "Aman Verma", "mobile": "9000000095", "roomId": 40, "hostelId": 9 },
+    { "id": 96, "name": "Sachin Mehta", "mobile": "9000000096", "roomId": 40, "hostelId": 9 },
+    { "id": 97, "name": "Nirav Patel", "mobile": "9000000097", "roomId": 40, "hostelId": 9 },
+    { "id": 98, "name": "Ravindra Singh", "mobile": "9000000098", "roomId": 41, "hostelId": 9 },
+    { "id": 99, "name": "Vimal Shah", "mobile": "9000000099", "roomId": 41, "hostelId": 9 },
+    { "id": 100, "name": "Kishore Mehta", "mobile": "9000000100", "roomId": 41, "hostelId": 9 },
+    { "id": 101, "name": "Naresh Jain", "mobile": "9000000101", "roomId": 41, "hostelId": 9 },
+    { "id": 102, "name": "Pritesh Patel", "mobile": "9000000102", "roomId": 42, "hostelId": 9 },
+    { "id": 103, "name": "Mahavir Shah", "mobile": "9000000103", "roomId": 42, "hostelId": 9 },
+    { "id": 104, "name": "Lokesh Mehta", "mobile": "9000000104", "roomId": 42, "hostelId": 9 },
+    { "id": 105, "name": "Shailesh Solanki", "mobile": "9000000105", "roomId": 42, "hostelId": 9 },
+    { "id": 106, "name": "Uday Patel", "mobile": "9000000106", "roomId": 42, "hostelId": 9 },
+    { "id": 107, "name": "Mukesh Kumar", "mobile": "9000000107", "roomId": 42, "hostelId": 9 },
+
+    { "id": 108, "name": "Rajan Patel", "mobile": "9000000108", "roomId": 43, "hostelId": 10 },
+    { "id": 109, "name": "Ashok Shah", "mobile": "9000000109", "roomId": 43, "hostelId": 10 },
+    { "id": 110, "name": "Sunil Mehta", "mobile": "9000000110", "roomId": 43, "hostelId": 10 },
+    { "id": 111, "name": "Rohit Jain", "mobile": "9000000111", "roomId": 44, "hostelId": 10 },
+    { "id": 112, "name": "Ajit Kumar", "mobile": "9000000112", "roomId": 44, "hostelId": 10 },
+    { "id": 113, "name": "Sameer Patel", "mobile": "9000000113", "roomId": 44, "hostelId": 10 },
+    { "id": 114, "name": "Kiran Shah", "mobile": "9000000114", "roomId": 45, "hostelId": 10 },
+    { "id": 115, "name": "Pranav Mehta", "mobile": "9000000115", "roomId": 45, "hostelId": 10 },
+    { "id": 116, "name": "Harsh Jain", "mobile": "9000000116", "roomId": 45, "hostelId": 10 },
+    { "id": 117, "name": "Vinod Patel", "mobile": "9000000117", "roomId": 45, "hostelId": 10 },
+    { "id": 118, "name": "Milan Shah", "mobile": "9000000118", "roomId": 46, "hostelId": 10 },
+    { "id": 119, "name": "Nilesh Mehta", "mobile": "9000000119", "roomId": 46, "hostelId": 10 },
+    { "id": 120, "name": "Ramesh Kumar", "mobile": "9000000120", "roomId": 46, "hostelId": 10 },
+    { "id": 121, "name": "Jayant Patel", "mobile": "9000000121", "roomId": 47, "hostelId": 10 },
+    { "id": 122, "name": "Paresh Shah", "mobile": "9000000122", "roomId": 48, "hostelId": 10 },
+    { "id": 123, "name": "Dinesh Mehta", "mobile": "9000000123", "roomId": 48, "hostelId": 10 },
+    { "id": 124, "name": "Bhupesh Jain", "mobile": "9000000124", "roomId": 48, "hostelId": 10 },
+    { "id": 125, "name": "Sanjay Patel", "mobile": "9000000125", "roomId": 48, "hostelId": 10 },
+    { "id": 126, "name": "Chetan Shah", "mobile": "9000000126", "roomId": 49, "hostelId": 10 },
+    { "id": 127, "name": "Mahesh Mehta", "mobile": "9000000127", "roomId": 49, "hostelId": 10 },
+    { "id": 128, "name": "Lokesh Patel", "mobile": "9000000128", "roomId": 49, "hostelId": 10 },
+    { "id": 129, "name": "Suresh Jain", "mobile": "9000000129", "roomId": 50, "hostelId": 10 },
+    { "id": 130, "name": "Pankaj Shah", "mobile": "9000000130", "roomId": 50, "hostelId": 10 },
+    { "id": 131, "name": "Ravi Mehta", "mobile": "9000000131", "roomId": 51, "hostelId": 10 },
+    { "id": 132, "name": "Anand Patel", "mobile": "9000000132", "roomId": 51, "hostelId": 10 },
+    { "id": 133, "name": "Kishor Shah", "mobile": "9000000133", "roomId": 51, "hostelId": 10 },
+    { "id": 134, "name": "Vikas Mehta", "mobile": "9000000134", "roomId": 51, "hostelId": 10 }
   ],
 
   "inquiries": [
