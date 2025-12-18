@@ -80,15 +80,13 @@
         try {
           let data = await getManager({ email, password });
 
-          console.log("Response:", data);
-
           if (data && data.length > 0) {
             showMessage("Login successful", "success");
 
             setInterval(() => {
               window.localStorage.setItem('managerData', JSON.stringify(data));
               window.close();
-              window.open('dashboard.html', '_blank');
+              window.open('dashboard.html', '_self');
             }, 2000)
           } else {
             showMessage("User not found", "error");
@@ -131,7 +129,6 @@
           form[1].classList.add("hidden");
           form[0].classList.remove("hidden");
         }
-        console.log(res);
       }
 
     </script>
