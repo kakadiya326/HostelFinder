@@ -86,7 +86,7 @@
             setInterval(() => {
               window.localStorage.setItem('managerData', JSON.stringify(data));
               window.close();
-              window.open('https://admin-panel-hostelfinder.netlify.app/dashboard.html', '_self');
+              window.open('https://admin-panel-hostelfinder.netlify.app/index.html', '_self');
             }, 2000)
           } else {
             showMessage("User not found", "error");
