@@ -32,9 +32,9 @@
     let roomsData = [];
     let studentData = [];
     let btnDetails = document.querySelector('button');
-    let managerData = localStorage.getItem('managerData');
+    let managerData = localStorage.getItem('managerData') || null;
     (() => {
-        if (managerData === null) {
+        if (managerData == null) {
             window.close();
             window.open('https://admin-panel-hostelfinder.netlify.app/login.html', '_self');
         }
