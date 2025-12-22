@@ -35,10 +35,9 @@
     let btnDetails = document.querySelector('button');
     let managerData = localStorage.getItem('managerData') || null;
 
-        if (managerData == null) {
-            window.close();
-            window.open('https://admin-panel-hostelfinder.netlify.app/login.html', '_self');
-        }
+    if (managerData == null) {
+        window.open('https://admin-panel-hostelfinder.netlify.app/login.html', '_self');
+    }
 
     let ul = document.querySelector('ul');
     let li = document.createElement('li');
