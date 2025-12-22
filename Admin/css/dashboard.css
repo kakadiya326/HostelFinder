@@ -1,10 +1,13 @@
-body { background:#f4f6fb; font-family:Arial; }
+body {
+    background: #f4f6fb;
+    font-family: Arial;
+}
 
 .dashboard {
     width: 90%;
     margin: 40px auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 20px;
 }
 
@@ -12,9 +15,30 @@ body { background:#f4f6fb; font-family:Arial; }
     background: white;
     padding: 25px;
     border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 
-.card h3 { color:#555; }
-.card p { font-size: 28px; color:#0a58ca; }
+.card h3 {
+    color: #555;
+}
+
+.card p {
+    font-size: 28px;
+    color: #0a58ca;
+}
+
+.card button {
+    background-color: #0a58ca;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.card button:hover {
+    background-color: #0740a0;
+}

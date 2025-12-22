@@ -103,9 +103,9 @@
         (() => load())()
 
         async function fullDetails(hostelID) {
-            const data = await getDetails(hostelID);
+            const data = await getHostelDetails(hostelID);
             localStorage.setItem('detailOfHostel', JSON.stringify(data))
-            window.open('http://127.0.0.1:5500/hostel-details.html', '_self')
+            window.open('hostel-details.html', '_self')
         }
 
     </script>

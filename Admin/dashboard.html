@@ -20,36 +20,24 @@
 
 
     <div class="dashboard">
-        <div class="card">
-            <h3>Total Hostels</h3>
-            <p>3</p>
-        </div>
-
-        <div class="card">
-            <h3>Rooms Full</h3>
-            <p>12</p>
-        </div>
-
-        <div class="card">
-            <h3>Rooms Available</h3>
-            <p>8</p>
-        </div>
-
-        <div class="card">
-            <h3>Total Students</h3>
-            <p>30</p>
-        </div>
     </div>
 
 </body>
-
+<script src="api/api.js"></script>
+<script src="api/hostels.js"></script>
+<script src="api/room.js"></script>
+<script src="api/student.js"></script>
 <script>
+    let hostelsData = [];
+    let roomsData = [];
+    let studentData = [];
+    let btnDetails = document.querySelector('button');
+    let managerData = localStorage.getItem('managerData');
     (() => {
-        if (localStorage.getItem('managerData') === null) {
+        if (managerData === null) {
             window.close();
-            window.open('login.html', '_self')
-            console.log('runed');
-        } console.log(localStorage.getItem('managerData'));
+            window.open('login.html', '_self');
+        }
     })()
     let ul = document.querySelector('ul');
     let li = document.createElement('li');
@@ -63,6 +51,55 @@
     });
     li.append(atag);
     ul.append(li);
+
+    async function letManagerID(id) {
+        hostelsData = await getHostelDetails(`?managerId=${id}`); // filtered hostel by managerid
+        let hostelIDs = hostelsData.map(h => h.id); //fetch IDs only
+        let query = hostelIDs.map(id => `hostelId=${id}`).join('&'); // made query for all hostelids
+        roomsData = await getRoomDetails(`?${query}`); // filered rooms by hostelIds
+        studentData = await getStdDetails(`?${query}`); //filter student enroll in manager's hostel
+
+        let availableRooms = roomsData.reduce((acc, obj) => {
+            return acc + (obj.capacity - obj.occupied);
+        }, 0);
+
+        //solution-1
+        // let fullRooms=roomsData.map((obj)=>{
+        //     return obj.capacity==obj.occupied;
+        // }).filter(val=>val==true).length;
+        // console.log(fullRooms);
+
+        //solution-2
+        let fullRooms = roomsData.filter(obj => obj.capacity == obj.occupied);
+        let fullRoomIDs=fullRooms.map(obj=>obj.id);
+        console.log(availableRooms);
+
+        makeCards('Total Hostels', hostelsData.length,'totalhostel',hostelsData);
+        makeCards('Rooms Full', fullRooms.length,'fulledroom',fullRoomIDs);
+        makeCards('Rooms Available', availableRooms,'availroom');
+        makeCards('Total Students', studentData.length,'totalstudent');
+
+    }
+    letManagerID(JSON.parse(managerData)[0].id);
+
+    let mainCon = document.querySelector('.dashboard');
+
+    function makeCards(title, val, detial) {
+        let card = document.createElement('div');
+        card.setAttribute('class', 'card');
+        card.innerHTML = `
+            <h3>${title}</h3>
+            <p>${val}</p>
+            <button onclick="viewMoreFun(${detial})">view more</button>
+        `;
+        mainCon.append(card);
+    }
+
+    function viewMoreFun(title){
+        localStorage
+    }
+
+
 </script>
 
 </html>
