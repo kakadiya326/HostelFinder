@@ -19,7 +19,6 @@
             <a href="/index.html" class="openedTab">Home</a>
             <a href="/hostel.html" class="openedTab">Hostels</a>
             <a href="#" class="openedTab">Contact</a>
-            <button class="login-btn">Login / Register</button>
         </nav>
     </header>
 
@@ -111,7 +110,7 @@
         async function fullDetails(id) {
             const data = await getHostelDetails(id);
             localStorage.setItem('detailOfHostel', JSON.stringify(data));
-            window.open('hostel-details.html', '_self');
+            window.open('https://hostelfinders.netlify.app/hostel-details.html', '_self');
         }
 
         //Range Tag
