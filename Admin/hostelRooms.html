@@ -31,7 +31,7 @@
 <script>
     (() => {
         if (localStorage.getItem('managerData') === null) {
-            window.close();
+
             window.open('lhttps://admin-panel-hostelfinder.netlify.app/login.html', '_self')
             console.log('runed');
         } console.log(localStorage.getItem('managerData'));
@@ -43,7 +43,7 @@
     atag.innerText = 'Logout';
     atag.addEventListener('click', () => {
         localStorage.removeItem('managerData');
-        window.close();
+
         window.open('https://admin-panel-hostelfinder.netlify.app/login.html', '_self');
     });
     li.append(atag);

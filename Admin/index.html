@@ -46,7 +46,7 @@
     atag.innerText = 'Logout';
     atag.addEventListener('click', () => {
         localStorage.removeItem('managerData');
-        window.close();
+
         window.open('https://admin-panel-hostelfinder.netlify.app/login.html', '_self');
     });
     li.append(atag);
