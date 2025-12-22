@@ -29,18 +29,17 @@
 <script src="api/student.js"></script>
 <script>
 
-    alert('index.html page')
     let hostelsData = [];
     let roomsData = [];
     let studentData = [];
     let btnDetails = document.querySelector('button');
     let managerData = localStorage.getItem('managerData') || null;
-    (() => {
+
         if (managerData == null) {
             window.close();
             window.open('https://admin-panel-hostelfinder.netlify.app/login.html', '_self');
         }
-    })()
+
     let ul = document.querySelector('ul');
     let li = document.createElement('li');
     let atag = document.createElement('a');
