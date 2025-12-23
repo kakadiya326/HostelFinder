@@ -18,7 +18,7 @@
         </ul>
     </nav>
 
-    <form class="form">
+    <form class="form" id="addHostelForm">
         <h2>Add Hostel</h2>
         <input placeholder="Hostel Name">
         <input placeholder="City">
@@ -38,8 +38,7 @@
         if (localStorage.getItem('managerData') === null) {
 
             window.open('https://admin-panel-hostelfinder.netlify.app/login.html', '_self')
-            console.log('runed');
-        } console.log(localStorage.getItem('managerData'));
+        } 
     })()
     let ul = document.querySelector('ul');
     let li = document.createElement('li');
@@ -105,8 +104,7 @@
 
     /* Call your existing method */
     console.log(hostelData);
-    localStorage.setItem('data',hostelData);
-    // addHostel(hostelData);
+    addHostel(hostelData);
 
     
 });
