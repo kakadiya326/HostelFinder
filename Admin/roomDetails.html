@@ -34,7 +34,7 @@
     (() => {
         if (localStorage.getItem('managerData') === null) {
 
-            window.open('https://admin-panel-hostelfinder.netlify.app/login.html', '_self')
+            window.open('login.html', '_self')
             console.log('runed');
         } console.log(localStorage.getItem('managerData'));
     })()
@@ -46,7 +46,7 @@
     atag.addEventListener('click', () => {
         localStorage.removeItem('managerData');
 
-        window.open('https://admin-panel-hostelfinder.netlify.app/login.html', '_self');
+        window.open('login.html', '_self');
     });
     li.append(atag);
     ul.append(li);

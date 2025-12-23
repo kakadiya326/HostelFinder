@@ -110,7 +110,7 @@
         async function fullDetails(id) {
             const data = await getHostelDetails(id);
             localStorage.setItem('detailOfHostel', JSON.stringify(data));
-            window.open('https://hostelfinders.netlify.app/hostel-details.html', '_self');
+            window.open('hostel-details.html', '_self');
         }
 
         //Range Tag
@@ -122,7 +122,6 @@
         }
         range.addEventListener("input", updateBubble);
         updateBubble();
-
 
         //Create options of city
         function makeCityOption(data) {
@@ -186,9 +185,6 @@
                 return check
             });
 
-            console.log({ cityFilterd });
-            console.log({ priceFilter });
-            console.log({ facilityFilter });
             if (facilityFilter.length <= 0) {
                 cardContainer.innerHTML = '<h1 class="sorrymsg"><b>Sorry,No match found!!😭😓</b></h1>';
                 recordCount.innerText = `Found : ${0} records`;
@@ -212,7 +208,7 @@
 
         }
 
-
+        //apply filter trigger
         function applyFilterToHostel() {
             addFilters();
         }

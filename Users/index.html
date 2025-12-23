@@ -104,7 +104,7 @@
         async function fullDetails(hostelID) {
             const data = await getHostelDetails(hostelID);
             localStorage.setItem('detailOfHostel', JSON.stringify(data))
-            window.open('https://hostelfinders.netlify.app/hostel-details.html', '_self')
+            window.open('hostel-details.html', '_self')
         }
 
     </script>
