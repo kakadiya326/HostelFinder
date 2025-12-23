@@ -31,6 +31,8 @@
     </form>
 
 </body>
+<script src="api/api.js"></script>
+<script src="api/hostels.js"></script>
 <script>
     (() => {
         if (localStorage.getItem('managerData') === null) {
@@ -51,6 +53,63 @@
     });
     li.append(atag);
     ul.append(li);
+
+
+    // add data logic
+
+
+    document.getElementById("addHostelForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const inputs = document.querySelectorAll(".form input, .form textarea");
+
+    const [
+        hostelName,
+        city,
+        state,
+        location,
+        price,
+        imageUrl,
+        facilities
+    ] = Array.from(inputs).map(input => input.value.trim());
+
+    /* Null / Empty validation */
+    if (
+        !hostelName ||
+        !city ||
+        !state ||
+        !location ||
+        !price ||
+        !imageUrl ||
+        !facilities
+    ) {
+        alert("All fields are required");
+        return;
+    }
+
+    /* Price validation */
+    if (isNaN(price) || Number(price) <= 0) {
+        alert("Enter a valid price");
+        return;
+    }
+
+    const hostelData = {
+        HostelName: hostelName,
+        City: city,
+        State: state,
+        Location: location,
+        Price: Number(price),
+        ImageUrl: imageUrl,
+        Facilities: facilities.split(",").map(f => f.trim())
+    };
+
+    /* Call your existing method */
+    console.log(hostelData);
+    localStorage.setItem('data',hostelData);
+    // addHostel(hostelData);
+
+    
+});
 </script>
 
 </html>
