@@ -93,19 +93,18 @@
     }
 
     const hostelData = {
-        HostelName: hostelName,
-        City: city,
-        State: state,
-        Location: location,
-        Price: Number(price),
-        ImageUrl: imageUrl,
-        Facilities: facilities.split(",").map(f => f.trim())
+        name: hostelName,
+        city: city,
+        state: state,
+        location: `📍 ${location}`,
+        price: Number(price),
+        image: imageUrl,
+        facilities: facilities.split(",").map(f => f.trim())
     };
 
     /* Call your existing method */
     console.log(hostelData);
     addHostel(hostelData);
-
     
 });
 </script>
