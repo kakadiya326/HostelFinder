@@ -6,46 +6,47 @@
     border: 1px solid #ccc;
     border-radius: 10px;
     margin-bottom: 15px;
-        overflow: hidden;
-    }
-    
-    .hostel-header {
-        background: #2c3e50;
-        color: #fff;
-        padding: 15px;
-        cursor: pointer;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    
-    .hostel-header h3 {
-        margin: 0;
-        font-size: 18px;
-    }
-    
-    .hostel-header span {
-        font-size: 14px;
-    }
-    
-    .room-dropdown {
-        display: none;
-        padding: 15px;
-        background: #f5f5f5;
-    }
-    
-    .room-card {
-        background: #fff;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        padding: 10px;
-        margin-bottom: 10px;
-    }
-    
-    .room-card p {
-        margin: 4px 0;
-        font-size: 14px;
+    overflow: hidden;
 }
+
+.hostel-header {
+    background: #2c3e50;
+    color: #fff;
+    padding: 15px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.hostel-header h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.hostel-header span {
+    font-size: 14px;
+}
+
+.room-dropdown {
+    display: none;
+    padding: 15px;
+    background: #f5f5f5;
+}
+
+.room-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.room-card p {
+    margin: 4px 0;
+    font-size: 14px;
+}
+
 .search-container {
     width: 100%;
     padding: 15px;
@@ -60,13 +61,14 @@
     font-size: 14px;
 }
 
-.loader{
+.loader {
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     border-radius: 20px;
     position: absolute;
 }
+
 .view-rooms-btn {
     padding: 6px 14px;
     font-size: 13px;
@@ -80,4 +82,53 @@
 
 .view-rooms-btn:hover {
     background-color: #16a085;
+}
+
+.editForm {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Dark background */
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+/* Form box */
+.form {
+    position: relative;
+    width: 400px;
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    z-index: 10;
+}
+
+/* Inputs */
+.form input,
+.form textarea,
+.form button {
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/* Close button */
+form .closeBtn {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background: crimson;
+    color: white;
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
 }

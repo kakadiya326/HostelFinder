@@ -48,9 +48,9 @@
     li.append(atag);
     ul.append(li);
 
-    let hostels = [];
+    let hostels = JSON.parse(localStorage.getItem('totHostels'));
 
-    let rooms = [];
+    let rooms = JSON.parse(localStorage.getItem('totRooms'));
 
     let students = [];
 
@@ -64,7 +64,7 @@
         hostels = await getHostelDetails(`?managerId=${JSON.parse(managerData)[0].id}`);
         let hostelIDs = hostels.map(h => h.id);
         let query = hostelIDs.map(id => `hostelId=${id}`).join('&');
-        rooms = await getRoomDetails(`?${query}`);
+        // rooms = await getRoomDetails(`?${query}`);
         students = await getStdDetails(`?${query}`);
         makeCards(hostels);
     }
@@ -74,7 +74,6 @@
     function makeCards(filtered) {
         container.innerHTML = '';
         filtered.forEach(hostel => {
-
             const hostelCard = document.createElement("div");
             hostelCard.className = "hostel-card";
 
@@ -89,8 +88,10 @@
                 </div>
 
                 <div style="display:flex; gap:10px; align-items:center;">
+                    <span>Rooms: ${rooms.filter(room => room.hostelId === hostel.id).length} ||
                     <span>ID: ${hostel.id}</span>
                     <button class="view-rooms-btn" onclick=viewAllRooms(${hostel.id}) >View All Rooms</button>
+                    <button class="view-rooms-btn" onclick='makeEditForm(${JSON.stringify(hostel)})'>Edit</button>
                 </div>
             `;
 
@@ -127,6 +128,78 @@
         collectRooms = rooms.filter(room => room.hostelId === hid);
         localStorage.setItem('rooms', JSON.stringify(collectRooms));
         window.open('hostelRooms.html', '_self');
+    }
+
+    function makeEditForm(data) {
+        let div = document.createElement('div');
+        div.className = "editForm";
+        div.innerHTML = `
+            <div class="overlay"></div>
+
+            <form class="form" >
+                <button id="cancel" class="closeBtn">X</button>
+
+                <h2>Edit Hostel</h2>
+
+                <input placeholder="Hostel Name" value="${data.name}">
+                <input placeholder="City"  value="${data.city}">
+                <input placeholder="State"  value="${data.state}">
+                <input placeholder="Location"  value="${data.location}">
+                <input placeholder="Price"  value="${data.price}">
+                <input placeholder="Image URL"  value="${data.image}">
+                <textarea placeholder="Facilities (comma separated)">${data.facilities}</textarea>
+
+                <button type="button" onclick="editHostel(${data.id})">Edit Hostel</button>
+            </form>
+        `;
+        container.appendChild(div);
+    }
+
+    function editHostel(id) {
+        const inputs = document.querySelectorAll(".form input, .form textarea");
+        const [
+            hostelName,
+            city,
+            state,
+            location,
+            price,
+            imageUrl,
+            facilities
+        ] = Array.from(inputs).map(input => input.value.trim());
+
+        /* Null / Empty validation */
+        if (
+            !hostelName ||
+            !city ||
+            !state ||
+            !location ||
+            !price ||
+            !imageUrl ||
+            !facilities
+        ) {
+            alert("All fields are required");
+            return;
+        }
+
+        /* Price validation */
+        if (isNaN(price) || Number(price) <= 0) {
+            alert("Enter a valid price");
+            return;
+        }
+
+        const hostelData = {
+            managerId: JSON.parse(managerData)[0].id,
+            name: hostelName,
+            city: city,
+            state: state,
+            location: location,
+            price: Number(price),
+            image: imageUrl,
+            facilities: facilities.split(",").map(f => f.trim())
+        };
+
+        /* Call add hostel method from api/hostel.js*/
+        updateHostel(id,hostelData);
     }
 
     document.getElementById('searchInput').addEventListener('input', (e) => {

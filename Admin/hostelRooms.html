@@ -4,7 +4,7 @@
 <head>
     <title>Hostel Rooms</title>
     <link rel="stylesheet" href="css/navBar.css">
-    <link rel="stylesheet" href="css/cards.css">
+    <link rel="stylesheet" href="css/rooms.css">
 </head>
 
 <body>
@@ -50,10 +50,12 @@
             card.setAttribute('class', 'card')
             card.innerHTML = `
                 <h3>Room No : ${room.roomNo}</h3>
-                <p>Capacity: ${room.capacity}</p>
-                <p>Occupied: ${room.occupied}</p>
-                <p>Price : ${room.price}</p>
-                <button>View Room</button>
+                <div class="content">
+                    <p><b>Capacity :</b> ${room.capacity}</p>
+                    <p><b>Occupied :</b> ${room.occupied}</p>
+                    <p><b>Price :</b> ${room.price}</p>
+                    <button>Admission</button>
+                </div>
             `;
             cards.append(card);
         });

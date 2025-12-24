@@ -34,11 +34,13 @@
 <script src="api/api.js"></script>
 <script src="api/hostels.js"></script>
 <script>
+    let managerData = localStorage.getItem('managerData') || null;
+
     (() => {
         if (localStorage.getItem('managerData') === null) {
 
             window.open('login.html', '_self');
-        } 
+        }
     })()
     let ul = document.querySelector('ul');
     let li = document.createElement('li');
@@ -58,55 +60,56 @@
 
 
     document.getElementById("addHostelForm").addEventListener("submit", function (e) {
-    e.preventDefault();
+        e.preventDefault();
 
-    const inputs = document.querySelectorAll(".form input, .form textarea");
+        const inputs = document.querySelectorAll(".form input, .form textarea");
 
-    const [
-        hostelName,
-        city,
-        state,
-        location,
-        price,
-        imageUrl,
-        facilities
-    ] = Array.from(inputs).map(input => input.value.trim());
+        const [
+            hostelName,
+            city,
+            state,
+            location,
+            price,
+            imageUrl,
+            facilities
+        ] = Array.from(inputs).map(input => input.value.trim());
 
-    /* Null / Empty validation */
-    if (
-        !hostelName ||
-        !city ||
-        !state ||
-        !location ||
-        !price ||
-        !imageUrl ||
-        !facilities
-    ) {
-        alert("All fields are required");
-        return;
-    }
+        /* Null / Empty validation */
+        if (
+            !hostelName ||
+            !city ||
+            !state ||
+            !location ||
+            !price ||
+            !imageUrl ||
+            !facilities
+        ) {
+            alert("All fields are required");
+            return;
+        }
 
-    /* Price validation */
-    if (isNaN(price) || Number(price) <= 0) {
-        alert("Enter a valid price");
-        return;
-    }
+        /* Price validation */
+        if (isNaN(price) || Number(price) <= 0) {
+            alert("Enter a valid price");
+            return;
+        }
 
-    const hostelData = {
-        name: hostelName,
-        city: city,
-        state: state,
-        location: `📍 ${location}`,
-        price: Number(price),
-        image: imageUrl,
-        facilities: facilities.split(",").map(f => f.trim())
-    };
+        const hostelData = {
+            managerId: JSON.parse(managerData)[0].id,
+            name: hostelName,
+            city: city,
+            state: state,
+            location: `📍 ${location}`,
+            price: Number(price),
+            image: imageUrl,
+            facilities: facilities.split(",").map(f => f.trim())
+        };
 
-    /* Call your existing method */
-    addHostel(hostelData);
-    
-    this.reset();
-});
+        /* Call add hostel method from api/hostel.js*/
+        addHostel(hostelData);
+        console.log(hostelData);
+        this.reset();
+    });
 </script>
 
 </html>
