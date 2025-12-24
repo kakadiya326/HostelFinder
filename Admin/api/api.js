@@ -22,7 +22,7 @@ async function apiPost(url, data) {
 }
 
 async function apiPut(url, data) {
-    const res = await fetch(`${BASE_URL}/${url}${id}`, {
+    const res = await fetch(`${BASE_URL}/${url}`, {
         method: "PUT",
         headers: {
             "Content-Type": "Application/json",
