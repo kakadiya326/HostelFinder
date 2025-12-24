@@ -11,30 +11,30 @@
 
     <nav class="navbar">
         <div class="logo">HostelManager</div>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search hostel by name or location...">
+        </div>
         <ul>
             <li><a href="index.html">Dashboard</a></li>
             <li><a href="allHostels.html">My Hostels</a></li>
             <li><a href="addHostel.html">Add Hostel</a></li>
         </ul>
     </nav>
+    <div class="hostel-container" id="hostelContainer"></div>
 
-    <div class="cards">
-        <div class="card">
-            <h3>Green Stay Hostel</h3>
-            <p>📍 Ahmedabad</p>
-            <button>View Rooms</button>
-            <button>Edit</button>
-        </div>
-    </div>
+
 
 </body>
+<script src="api/api.js"></script>
+<script src="api/hostels.js"></script>
+<script src="api/room.js"></script>
+<script src="api/student.js"></script>
 <script>
+    let managerData = localStorage.getItem('managerData') || null;
     (() => {
-        if (localStorage.getItem('managerData') === null) {
-
+        if (managerData === null) {
             window.open('login.html', '_self')
-            console.log('runed');
-        } console.log(localStorage.getItem('managerData'));
+        }
     })()
     let ul = document.querySelector('ul');
     let li = document.createElement('li');
@@ -43,11 +43,102 @@
     atag.innerText = 'Logout';
     atag.addEventListener('click', () => {
         localStorage.removeItem('managerData');
-
         window.open('login.html', '_self');
     });
     li.append(atag);
     ul.append(li);
+
+    let hostels = [];
+
+    let rooms = [];
+
+    let students = [];
+
+    const container = document.getElementById("hostelContainer");
+    function loader() {
+        container.innerHTML = '<div class="loader">Loading please wait....!!</div>';
+    }
+
+    async function getData() {
+        loader();
+        hostels = await getHostelDetails(`?managerId=${JSON.parse(managerData)[0].id}`);
+        let hostelIDs = hostels.map(h => h.id);
+        let query = hostelIDs.map(id => `hostelId=${id}`).join('&');
+        rooms = await getRoomDetails(`?${query}`);
+        students = await getStdDetails(`?${query}`);
+        makeCards(hostels);
+    }
+
+    getData();
+
+    function makeCards(filtered) {
+        container.innerHTML = '';
+        filtered.forEach(hostel => {
+
+            const hostelCard = document.createElement("div");
+            hostelCard.className = "hostel-card";
+
+            const header = document.createElement("div");
+            header.className = "hostel-header";
+            header.innerHTML = `
+                <div>
+                    <h3>${hostel.name}</h3>
+                    <p style="margin:4px 0;font-size:14px;">
+                        ${hostel.location}
+                    </p>
+                </div>
+
+                <div style="display:flex; gap:10px; align-items:center;">
+                    <span>ID: ${hostel.id}</span>
+                    <button class="view-rooms-btn" onclick=viewAllRooms(${hostel.id}) >View All Rooms</button>
+                </div>
+            `;
+
+            const dropdown = document.createElement("div");
+            dropdown.className = "room-dropdown";
+
+            dropdown.innerHTML = `<p><b>${hostel.location}</b></p>`;
+
+            rooms
+                .filter(room => room.hostelId === hostel.id)
+                .forEach(room => {
+                    dropdown.innerHTML += `
+                        <div class="room-card">
+                            <p><b>Room No:</b> ${room.roomNo}</p>
+                            <p><b>Capacity:</b> ${room.capacity}</p>
+                            <p><b>Occupied:</b> ${room.occupied}</p>
+                            <p><b>Price:</b> ₹${room.price}</p>
+                        </div>
+                    `;
+                });
+
+            header.addEventListener("click", () => {
+                dropdown.style.display =
+                    dropdown.style.display === "block" ? "none" : "block";
+            });
+
+            hostelCard.append(header, dropdown);
+            container.appendChild(hostelCard);
+        });
+    }
+
+    function viewAllRooms(hid) {
+        loader();
+        collectRooms = rooms.filter(room => room.hostelId === hid);
+        localStorage.setItem('rooms', JSON.stringify(collectRooms));
+        window.open('hostelRooms.html', '_self');
+    }
+
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+        const searchText = e.target.value.toLowerCase();
+        const filtered = hostels.filter(h =>
+            h.name.toLowerCase().includes(searchText) ||
+            h.location.toLowerCase().includes(searchText)
+        );
+        console.log(filtered);
+        makeCards(filtered);
+    });
+
 </script>
 
 </html>

@@ -46,13 +46,14 @@
     atag.innerText = 'Logout';
     atag.addEventListener('click', () => {
         localStorage.removeItem('managerData');
-
         window.open('login.html', '_self');
     });
     li.append(atag);
     ul.append(li);
 
     async function letManagerID(id) {
+        const container = document.querySelector(".dashboard");
+        container.innerHTML = '<div class="loader">Loading please wait....!!</div>';
         hostelsData = await getHostelDetails(`?managerId=${id}`); // filtered hostel by managerid
         let hostelIDs = hostelsData.map(h => h.id); //fetch IDs only
         let query = hostelIDs.map(id => `hostelId=${id}`).join('&'); // made query for all hostelids
@@ -72,7 +73,7 @@
         //solution-2
         let fullRooms = roomsData.filter(obj => obj.capacity == obj.occupied);
         let fullRoomIDs = fullRooms.map(obj => obj.id);
-        console.log(availableRooms);
+        container.innerHTML = '';
 
         makeCards('Total Hostels', hostelsData.length, 'totalhostel', hostelsData);
         makeCards('Rooms Full', fullRooms.length, 'fulledroom', fullRoomIDs);

@@ -19,12 +19,7 @@
     </nav>
 
     <div class="cards">
-        <div class="card">
-            <h3>Room 101</h3>
-            <p>Capacity: 3</p>
-            <p>Occupied: 1</p>
-            <button>View Room</button>
-        </div>
+
     </div>
 
 </body>
@@ -43,11 +38,27 @@
     atag.innerText = 'Logout';
     atag.addEventListener('click', () => {
         localStorage.removeItem('managerData');
-
         window.open('login.html', '_self');
     });
     li.append(atag);
     ul.append(li);
+    const rooms = JSON.parse(localStorage.getItem('rooms'))
+    function makeCards() {
+        let cards = document.querySelector('.cards');
+        rooms.forEach(room => {
+            let card = document.createElement("div");
+            card.setAttribute('class', 'card')
+            card.innerHTML = `
+                <h3>Room No : ${room.roomNo}</h3>
+                <p>Capacity: ${room.capacity}</p>
+                <p>Occupied: ${room.occupied}</p>
+                <p>Price : ${room.price}</p>
+                <button>View Room</button>
+            `;
+            cards.append(card);
+        });
+    }
+    makeCards();
 </script>
 
 </html>
