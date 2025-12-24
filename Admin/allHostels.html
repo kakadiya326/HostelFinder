@@ -91,7 +91,8 @@
                     <span>Rooms: ${rooms.filter(room => room.hostelId === hostel.id).length} ||
                     <span>ID: ${hostel.id}</span>
                     <button class="view-rooms-btn" onclick=viewAllRooms(${hostel.id}) >View All Rooms</button>
-                    <button class="view-rooms-btn" onclick='makeEditForm(${JSON.stringify(hostel)})'>Edit</button>
+                    <button class="update-rooms-btn" onclick='makeEditForm(${JSON.stringify(hostel)})'>Edit</button>
+                    <button class="delete-rooms-btn" onclick='dltHostel(${hostel.id})'>delete</button>
                 </div>
             `;
 
@@ -121,6 +122,15 @@
             hostelCard.append(header, dropdown);
             container.appendChild(hostelCard);
         });
+    }
+
+    async function dltHostel(id) {
+      if(confirm('Are you sure?')){
+          await deleteHostel(id);
+          await deleteRoom(id);
+          await deleteStudent(id);
+          location.reload();
+      }
     }
 
     function viewAllRooms(hid) {
