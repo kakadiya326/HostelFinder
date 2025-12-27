@@ -16,9 +16,9 @@
             <input type="text" id="searchInput" placeholder="Search hostel by name or location...">
         </div>
         <ul>
-            <li><a href="index.html">Dashboard</a></li>
-            <li><a href="allHostels.html">My Hostels</a></li>
-            <li><a href="addHostel.html">Add Hostel</a></li>
+            <li><a href="https://managers-panel.netlify.app/index.html">Dashboard</a></li>
+            <li><a href="https://managers-panel.netlify.app/allHostels.html">My Hostels</a></li>
+            <li><a href="https://managers-panel.netlify.app/addHostel.html">Add Hostel</a></li>
             <li><a id="logoutBtn" style="cursor:pointer;">Logout</a></li>
         </ul>
     </nav>
@@ -40,13 +40,13 @@
     refreshLocalStorageAndStats(manager[0].id);
     (() => {
         if (!manager || manager.length === 0) {
-            window.open('login.html', '_self')
+            window.open('https://managers-panel.netlify.app/login.html', '_self')
         }
     })();
 
     document.getElementById('logoutBtn').onclick = () => {
         localStorage.removeItem('managerData');
-        window.open('login.html', '_self');
+        window.open('https://managers-panel.netlify.app/login.html', '_self');
     };
 
     let hostels = null;
@@ -145,7 +145,7 @@
         loader();
         collectRooms = getRooms().filter(room => room.hostelId === hid);
         localStorage.setItem('rooms', JSON.stringify(collectRooms));
-        window.open('hostelRooms.html', '_self');
+        window.open('https://managers-panel.netlify.app/hostelRooms.html', '_self');
     }
 
     //=========== Edit Hostel =============

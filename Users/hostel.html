@@ -16,8 +16,8 @@
     <header class="navbar">
         <h1 class="logo">🏠 HostelFinder</h1>
         <nav>
-            <a href="/index.html" class="openedTab">Home</a>
-            <a href="/hostel.html" class="openedTab">Hostels</a>
+            <a href="https://hostel-finders.netlify.app/index.html" class="openedTab">Home</a>
+            <a href="https://hostel-finders.netlify.app/hostel.html" class="openedTab">Hostels</a>
             <a href="#" class="openedTab">Contact</a>
         </nav>
     </header>
@@ -110,7 +110,7 @@
         async function fullDetails(id) {
             const data = await getHostelDetails(id);
             localStorage.setItem('detailOfHostel', JSON.stringify(data));
-            window.open('hostel-details.html', '_self');
+            window.open('https://hostel-finders.netlify.app/hostel-details.html', '_self');
         }
 
         //Range Tag
@@ -173,8 +173,6 @@
                 }
             });
 
-            //filter Facilities logic
-
             //apply filter to priceFilter arr because city is all and price is by default 6000
             facilityFilter = priceFilter.filter((obj) => {
                 let check = arrOfFacility.some(fac => {
@@ -208,7 +206,7 @@
 
         }
 
-        //apply filter trigger
+        //Apply Filter Trigger
         function applyFilterToHostel() {
             addFilters();
         }

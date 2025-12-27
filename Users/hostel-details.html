@@ -11,7 +11,8 @@
 <body>
 
     <header class="navbar">
-        <h1 class="logo"><a href="index.html" style="text-decoration: none; color: black;">🏠 HostelFinder</a></h1>
+        <h1 class="logo"><a href="https://hostel-finders.netlify.app/index.html"
+                style="text-decoration: none; color: black;">🏠 HostelFinder</a></h1>
     </header>
 
     <div class="container"></div>
@@ -45,7 +46,7 @@
             <h3>Facilities</h3>
         `;
 
-        infoCon.append(ul);   
+        infoCon.append(ul);
 
         infoCon.innerHTML += `
             <h3>Price</h3>
@@ -58,7 +59,6 @@
 
         container.append(imageCon, infoCon);
 
-
         //Made contact manager floating container
         async function makeContact() {
             var contactDetails = await getManager(hostelData.managerId);
@@ -68,10 +68,9 @@
             phone.innerText = contactDetails.phone;
             let email = document.createElement('span');
             email.innerText = contactDetails.email;
-            contact.append(phone,email)
+            contact.append(phone, email)
         }
         makeContact();
-
 
     </script>
 </body>

@@ -16,7 +16,7 @@
         <h1 class="logo">🏠 HostelFinder</h1>
         <nav>
             <a href="#" class="openedTab">Home</a>
-            <a href="/hostel.html" class="openedTab">Hostels</a>
+            <a href="https://hostel-finders.netlify.app/hostel.html" class="openedTab">Hostels</a>
             <a href="#" class="openedTab">Contact</a>
         </nav>
     </header>
@@ -75,7 +75,6 @@
         }
 
         // Card creation
-
         async function load() {
             let data = await getHostelLimit();
             makeCards(data)
@@ -104,7 +103,7 @@
         async function fullDetails(hostelID) {
             const data = await getHostelDetails(hostelID);
             localStorage.setItem('detailOfHostel', JSON.stringify(data))
-            window.open('hostel-details.html', '_self')
+            window.open('https://hostel-finders.netlify.app/hostel-details.html', '_self')
         }
 
     </script>

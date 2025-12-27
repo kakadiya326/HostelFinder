@@ -12,9 +12,9 @@
     <nav class="navbar">
         <div class="logo">HostelManager</div>
         <ul>
-            <li><a href="index.html">Dashboard</a></li>
-            <li><a href="allHostels.html">My Hostels</a></li>
-            <li><a href="addHostel.html">Add Hostel</a></li>
+            <li><a href="https://managers-panel.netlify.app/index.html">Dashboard</a></li>
+            <li><a href="https://managers-panel.netlify.app/allHostels.html">My Hostels</a></li>
+            <li><a href="https://managers-panel.netlify.app/addHostel.html">Add Hostel</a></li>
             <li><a id="logoutBtn" style="cursor:pointer;">Logout</a></li>
         </ul>
     </nav>
@@ -40,12 +40,12 @@
     const manager = JSON.parse(localStorage.getItem('managerData')) || [];
     (() => {
         if (!manager || manager.length === 0) {
-            window.open('login.html', '_self')
+            window.open('https://managers-panel.netlify.app/login.html', '_self')
         }
     })();
     document.getElementById('logoutBtn').onclick = () => {
         localStorage.removeItem('managerData');
-        window.open('login.html', '_self');
+        window.open('https://managers-panel.netlify.app/login.html', '_self');
     };
 
 
