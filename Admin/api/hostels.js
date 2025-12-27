@@ -20,7 +20,7 @@ async function getHostelDetails(id) {
 
 // Add New hostel
 async function addHostel(roomData) {
-    await apiPost("hostels", roomData);
+    await apiPost("hostels/", roomData);
     getHostel();
 }
 

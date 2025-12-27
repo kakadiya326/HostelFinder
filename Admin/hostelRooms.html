@@ -5,6 +5,8 @@
     <title>Hostel Rooms</title>
     <link rel="stylesheet" href="css/navBar.css">
     <link rel="stylesheet" href="css/rooms.css">
+    <link rel="stylesheet" href="css/loader.css">
+
 </head>
 
 <body>
@@ -15,52 +17,277 @@
             <li><a href="index.html">Dashboard</a></li>
             <li><a href="allHostels.html">My Hostels</a></li>
             <li><a href="addHostel.html">Add Hostel</a></li>
+            <li><a id="logoutBtn" style="cursor:pointer;">Logout</a></li>
         </ul>
     </nav>
 
-    <div class="cards">
+    <div class="container">
+        <div class="layer">
+            <div class="layout"></div>
+        </div>
 
+        <div class="cards"></div>
     </div>
 
+    
+    <div id="globalLoader"></div>
+
 </body>
+
+<script src="api/api.js"></script>
+<script src="api/student.js"></script>
+<script src="api/room.js"></script>
+<script src="api/dashboardHelper.js"></script>
+<script src="api/hostels.js"></script>
+
 <script>
+
+    //========= SECURITY ==========
+    const manager = JSON.parse(localStorage.getItem('managerData')) || [];
     (() => {
-        if (localStorage.getItem('managerData') === null) {
+        if (!manager || manager.length === 0) {
+            window.open('login.html', '_self')
+        }
+    })();
 
-            window.open('llogin.html', '_self')
-            console.log('runed');
-        } console.log(localStorage.getItem('managerData'));
-    })()
-    let ul = document.querySelector('ul');
-    let li = document.createElement('li');
-    let atag = document.createElement('a');
-
-    atag.innerText = 'Logout';
-    atag.addEventListener('click', () => {
+    document.getElementById('logoutBtn').onclick = () => {
         localStorage.removeItem('managerData');
         window.open('login.html', '_self');
-    });
-    li.append(atag);
-    ul.append(li);
-    const rooms = JSON.parse(localStorage.getItem('rooms'))
+    };
+
+    // ===== LOADER FIX =====
+    function showLoader() {
+        document.getElementById("globalLoader").innerHTML = `
+        <div class="loader-overlay">
+            <div class="loader-box">
+                <div class="loader-spinner"></div>
+                Loading please wait...
+            </div>
+        </div>`;
+    }
+
+    function hideLoader() {
+        document.getElementById("globalLoader").innerHTML = "";
+    }
+
+    // ========= GLOBALS ==========
+    let flagUpdate = false;
+    let currentStudent = null;
+    let currentRoom = null;
+
+    const layer = document.querySelector('.layer');
+    const layout = document.querySelector('.layout');
+    const cards = document.querySelector('.cards');
+
+    layer.removeAttribute('class', 'layer');
+
+    function getRooms() {
+        return JSON.parse(localStorage.getItem('rooms')) || [];
+    }
+
+    function getStudents() {
+        return JSON.parse(localStorage.getItem('totStudents')) || [];
+    }
+
+    // ========= ROOM CARDS ==========
     function makeCards() {
-        let cards = document.querySelector('.cards');
+        cards.innerHTML = "";
+        const rooms = getRooms();
+
         rooms.forEach(room => {
             let card = document.createElement("div");
-            card.setAttribute('class', 'card')
+            card.setAttribute('class', 'card');
+
+            const occupied = getStudents().filter(s => s.roomId == room.id).length;
+
             card.innerHTML = `
                 <h3>Room No : ${room.roomNo}</h3>
                 <div class="content">
                     <p><b>Capacity :</b> ${room.capacity}</p>
-                    <p><b>Occupied :</b> ${room.occupied}</p>
+                    <p><b>Occupied :</b> ${occupied}</p>
                     <p><b>Price :</b> ${room.price}</p>
-                    <button>Admission</button>
+                    <button onclick='makeLayer(${JSON.stringify(room)})'>Admission</button>
                 </div>
             `;
+
             cards.append(card);
         });
     }
-    makeCards();
+
+    // ========= POPUP ==========
+    function makeLayer(room) {
+        currentRoom = room;
+
+        const students = getStudents().filter(std => std.roomId == room.id);
+
+        layer.classList.add('layer');
+        layout.innerHTML = '';
+
+        const cancelBtn = document.createElement('button');
+        cancelBtn.className = 'closeBtn';
+        cancelBtn.innerText = 'X';
+        cancelBtn.onclick = closeLayout;
+
+        const form = document.createElement('form');
+        form.className = 'student-form';
+        form.id = 'studentForm';
+
+        form.innerHTML = `
+            <h2 id="formTitle">${flagUpdate ? "Update Student" : "Add Student"}</h2>
+
+            <div class="form-group">
+                <input type="text" placeholder="Student Name">
+                <input type="tel" placeholder="Mobile">
+                <input type="number" placeholder="Room ID" value="${room.id}">
+            </div>
+            <div class="conBtns">
+                <button class="submitBtn" id="saveBtn">${flagUpdate ? "Update" : "Save"}</button>
+                <button class="submitBtn" id="clearBtn">Clear</button>
+                <button class="submitBtn" id="cancelBtn">Cancel</button>
+            </div>
+        `;
+
+        const table = document.createElement("table");
+        table.className = "student-table";
+
+        table.innerHTML = `
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Mobile</th>
+                    <th>Room ID</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${students.map(std => `
+                    <tr>
+                        <td>${std.id}</td>
+                        <td>${std.name}</td>
+                        <td>${std.mobile}</td>
+                        <td>${std.roomId}</td>
+                        <td> 
+                            <button class="editBtn" onclick='onEdit(${JSON.stringify(std)})'>Edit</button>
+                            <button class="deleteBtn" onclick='onDelete(${std.id})'>Delete</button> 
+                        </td>
+                    </tr>
+                `).join("")}
+            </tbody>
+        `;
+
+        layout.append(cancelBtn, form, table);
+
+        document.getElementById("saveBtn").onclick = onSaveStudent;
+        document.getElementById("clearBtn").onclick = clearForm;
+        document.getElementById("cancelBtn").onclick = resetForm;
+    }
+
+    // ========= SAVE STUDENT ==========
+    async function onSaveStudent(e) {
+        e.preventDefault();
+
+        try {
+            showLoader();
+
+            const inputs = document.querySelectorAll('.form-group input');
+            const [name, mobile, roomId] = [...inputs].map(i => i.value.trim());
+
+            if (!name || !mobile || !roomId)
+                return alert("All fields are required");
+
+            if (mobile.length !== 10)
+                return alert("Mobile must be 10 digits");
+
+            let student = {
+                name,
+                mobile,
+                roomId,
+                hostelId: currentRoom.hostelId
+            };
+
+            if (flagUpdate) {
+                student.id = currentStudent.id;
+                await updateStudent(student.id, student);
+
+            } else {
+                const count = getStudents().filter(s => s.roomId == currentRoom.id).length;
+
+                if (count >= currentRoom.capacity)
+                    return alert("Room is full");
+
+                await addStudent(student);
+                await updateRoomOccupied(currentRoom.id, count + 1);
+            }
+
+            await refreshLocalStorageAndStats(manager[0].id);
+            flagUpdate = false;
+            makeCards();
+            closeLayout();
+        }
+        finally {
+            hideLoader();
+        }
+    }
+
+    function onEdit(std) {
+        flagUpdate = true;
+        currentStudent = std;
+
+        const inputs = document.querySelectorAll('.form-group input');
+        inputs[0].value = std.name;
+        inputs[1].value = std.mobile;
+        inputs[2].value = std.roomId;
+
+        document.getElementById("saveBtn").innerText = "Update";
+        document.getElementById("formTitle").innerText = "Update Student";
+    }
+
+    // ========= DELETE ==========
+    async function onDelete(id) {
+        try {
+            showLoader();
+
+            await deleteStudent(id);
+
+            const count = getStudents().filter(s => s.roomId == currentRoom.id).length;
+
+            await updateRoomOccupied(
+                currentRoom.id,
+                Math.max(count - 1, 0)
+            );
+
+            await refreshLocalStorageAndStats(manager[0].id);
+            makeCards();
+            makeLayer(currentRoom);
+        }
+        finally {
+            hideLoader();
+        }
+    }
+
+    function clearForm(e) {
+        e.preventDefault();
+        document.querySelectorAll('.form-group input').forEach(i => i.value = '');
+    }
+
+    function resetForm(e) {
+        e.preventDefault();
+        flagUpdate = false;
+        makeLayer(currentRoom);
+    }
+
+    function closeLayout() {
+        layer.classList.remove("layer");
+        layout.innerHTML = "";
+        flagUpdate = false;
+    }
+
+    (async function init() {
+        await refreshLocalStorageAndStats(manager[0].id);
+        makeCards();
+    })();
+
 </script>
 
 </html>

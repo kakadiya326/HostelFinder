@@ -15,6 +15,7 @@
             <li><a href="index.html">Dashboard</a></li>
             <li><a href="allHostels.html">My Hostels</a></li>
             <li><a href="addHostel.html">Add Hostel</a></li>
+            <li><a id="logoutBtn" style="cursor:pointer;">Logout</a></li>
         </ul>
     </nav>
 
@@ -34,31 +35,21 @@
 <script src="api/api.js"></script>
 <script src="api/hostels.js"></script>
 <script>
-    let managerData = localStorage.getItem('managerData') || null;
-
+    
+    //========= SECURITY ==========
+    const manager = JSON.parse(localStorage.getItem('managerData')) || [];
     (() => {
-        if (localStorage.getItem('managerData') === null) {
-
-            window.open('login.html', '_self');
+        if (!manager || manager.length === 0) {
+            window.open('login.html', '_self')
         }
-    })()
-    let ul = document.querySelector('ul');
-    let li = document.createElement('li');
-    let atag = document.createElement('a');
-
-    atag.innerText = 'Logout';
-    atag.addEventListener('click', () => {
+    })();
+    document.getElementById('logoutBtn').onclick = () => {
         localStorage.removeItem('managerData');
-
         window.open('login.html', '_self');
-    });
-    li.append(atag);
-    ul.append(li);
+    };
 
 
     // add data logic
-
-
     document.getElementById("addHostelForm").addEventListener("submit", function (e) {
         e.preventDefault();
 
@@ -95,7 +86,7 @@
         }
 
         const hostelData = {
-            managerId: JSON.parse(managerData)[0].id,
+            managerId: manager[0].id,
             name: hostelName,
             city: city,
             state: state,

@@ -15,6 +15,7 @@
             <li><a href="index.html">Dashboard</a></li>
             <li><a href="allHostels.html">My Hostels</a></li>
             <li><a href="addHostel.html">Add Hostel</a></li>
+            <li><a id="logoutBtn" style="cursor:pointer;">Logout</a></li>
         </ul>
     </nav>
 
@@ -31,25 +32,18 @@
 
 </body>
 <script>
+    //========= SECURITY ==========
+    const manager = JSON.parse(localStorage.getItem('managerData')) || [];
     (() => {
-        if (localStorage.getItem('managerData') === null) {
-
+        if (!manager || manager.length === 0) {
             window.open('login.html', '_self')
-            console.log('runed');
-        } console.log(localStorage.getItem('managerData'));
-    })()
-    let ul = document.querySelector('ul');
-    let li = document.createElement('li');
-    let atag = document.createElement('a');
+        }
+    })();
 
-    atag.innerText = 'Logout';
-    atag.addEventListener('click', () => {
+    document.getElementById('logoutBtn').onclick = () => {
         localStorage.removeItem('managerData');
-
         window.open('login.html', '_self');
-    });
-    li.append(atag);
-    ul.append(li);
+    };
 </script>
 
 </html>

@@ -2,9 +2,10 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: #0a58ca;
+    background: hsl(216, 91%, 42%);
     padding: 14px 40px;
     color: white;
+    z-index: 999;
 }
 
 /* Left: Logo */
@@ -34,12 +35,26 @@
     display: flex;
     gap: 25px;
     white-space: nowrap;
+    align-items: center;
 }
 
 .navbar ul li a {
     color: white;
     text-decoration: none;
     font-size: 16px;
+}
+
+.navbar ul li:last-child {
+    padding: 5px 10px;
+    box-sizing: border-box;
+    background-color: hsl(0, 70%, 50%);
+    border-radius: 20px;
+    border: 2px solid transparent;
+}
+
+.navbar ul li:last-child:hover {
+    background-color: hsl(0, 70%, 30%);
+    border: 2px solid black;
 }
 
 /* 🔽 Tablet */

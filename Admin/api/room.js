@@ -11,11 +11,14 @@ async function addRoom(roomData) {
 
 // get details
 async function getRoomDetails(id) {
-    return  await apiDetails(`rooms/${id}`);
+    return await apiDetails(`rooms/${id}`);
 }
 
-//Update room's data 
-
+//Update room's data
+async function updateRoomOccupied(id, occupied ) {
+    await apiPatch(`rooms/${id}`, {occupied })
+    getRooms();
+}
 
 // Delete Room
 async function deleteRoom(id) {

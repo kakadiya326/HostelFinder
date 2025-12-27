@@ -5,6 +5,7 @@
     <title>Manager Dashboard</title>
     <link rel="stylesheet" href="css/navBar.css">
     <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/loader.css">
 </head>
 
 <body>
@@ -15,6 +16,7 @@
             <li><a href="index.html">Dashboard</a></li>
             <li><a href="allHostels.html">My Hostels</a></li>
             <li><a href="addHostel.html">Add Hostel</a></li>
+            <li><a id="logoutBtn" style="cursor:pointer;">Logout</a></li>
         </ul>
     </nav>
 
@@ -26,101 +28,42 @@
 <script src="api/hostels.js"></script>
 <script src="api/room.js"></script>
 <script src="api/student.js"></script>
+<script src="api/dashboardHelper.js"></script>
 <script>
 
     let hostelsData = [];
     let roomsData = [];
     let studentData = [];
     let btnDetails = document.querySelector('button');
-    let managerData = localStorage.getItem('managerData') || null;
 
-    if (managerData == null) {
-        window.open('login.html', '_self');
-    }
+    //========= SECURITY ==========
+    let manager = JSON.parse(localStorage.getItem("managerData"));
+    refreshLocalStorageAndStats(manager[0].id);
 
-    let ul = document.querySelector('ul');
-    let li = document.createElement('li');
-    let atag = document.createElement('a');
+    (() => {
+        if (!manager || manager.length === 0) {
+            window.open('login.html', '_self')
+        }
+    })();
 
-    atag.innerText = 'Logout';
-    atag.addEventListener('click', () => {
+    //==========Logout============
+    document.getElementById('logoutBtn').onclick = () => {
         localStorage.removeItem('managerData');
         window.open('login.html', '_self');
-    });
-    li.append(atag);
-    ul.append(li);
-
-    async function letManagerID(id) {
-        const container = document.querySelector(".dashboard");
-        container.innerHTML = '<div class="loader">Loading please wait....!!</div>';
-        hostelsData = await getHostelDetails(`?managerId=${id}`); // filtered hostel by managerid
-        let hostelIDs = hostelsData.map(h => h.id); //fetch IDs only
-        let query = hostelIDs.map(id => `hostelId=${id}`).join('&'); // made query for all hostelids
-        roomsData = await getRoomDetails(`?${query}`); // filered rooms by hostelIds
-        studentData = await getStdDetails(`?${query}`); //filter student enroll in manager's hostel
-
-        let availableRooms = roomsData.reduce((acc, obj) => {
-            return acc + (obj.capacity - obj.occupied);
-        }, 0);
-
-        //set data to localStorage
-        localStorage.setItem('totHostels', JSON.stringify(hostelsData));
-        localStorage.setItem('totRooms', JSON.stringify(roomsData));
-        localStorage.setItem('totStudents', JSON.stringify(studentData));
-        // localStorage.setItem('totAvailable', JSON.stringify(availableRooms));
-        // localStorage.setItem('totFullRooms', JSON.stringify(availableRooms));
-
-        //solution-1
-        // let fullRooms=roomsData.map((obj)=>{
-        //     return obj.capacity==obj.occupied;
-        // }).filter(val=>val==true).length;
-        // console.log(fullRooms);
-
-        //solution-2
-        let fullRooms = roomsData.filter(obj => obj.capacity == obj.occupied);
-        let fullRoomIDs = fullRooms.map(obj => obj.id);
-        container.innerHTML = '';
-
-        // makeCards('Total Hostels', hostelsData.length, 'totalhostel');
-        // makeCards('Rooms Full', fullRooms.length, 'fulledroom');
-        // makeCards('Rooms Available', availableRooms, 'availroom');
-        // makeCards('Total Students', studentData.length, 'totalstudent');
-
-        makeCards('Total Hostels', hostelsData.length);
-        makeCards('Rooms Full', fullRooms.length);
-        makeCards('Rooms Available', availableRooms);
-        makeCards('Total Students', studentData.length);
-
-    }
-    letManagerID(JSON.parse(managerData)[0].id);
+    };
 
     let mainCon = document.querySelector('.dashboard');
 
+    //====== Dashboard Cards========
     function makeCards(title, val, detial) {
         let card = document.createElement('div');
-        card.setAttribute('class', 'card');
+        card.className = 'card';
         card.innerHTML = `
             <h3>${title}</h3>
             <p>${val}</p>
         `;
-        // <h3>${title}</h3>
-        //     <p>${val}</p>
-        //     <button onclick="viewMoreFun('${detial}')">view more</button>
         mainCon.append(card);
     }
-
-    // function viewMoreFun(title) {
-    //     if (title === 'totalhostel') {
-    //         window.open('allHostels.html', '_self');
-    //     } else if (title === 'fulledroom') {
-    //         window.open('allHostels.html', '_self');
-    //     } else if (title === 'availroom') {
-    //         window.open('allHostels.html', '_self');
-    //     } else if (title === 'totalstudent') {
-    //         window.open('allHostels.html', '_self');
-    //     }
-    // }
-
 </script>
 
 </html>

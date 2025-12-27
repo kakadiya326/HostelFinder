@@ -5,6 +5,7 @@
     <title>My Hostels</title>
     <link rel="stylesheet" href="css/navBar.css">
     <link rel="stylesheet" href="css/cards.css">
+    <link rel="stylesheet" href="css/loader.css">
 </head>
 
 <body>
@@ -18,6 +19,7 @@
             <li><a href="index.html">Dashboard</a></li>
             <li><a href="allHostels.html">My Hostels</a></li>
             <li><a href="addHostel.html">Add Hostel</a></li>
+            <li><a id="logoutBtn" style="cursor:pointer;">Logout</a></li>
         </ul>
     </nav>
     <div class="hostel-container" id="hostelContainer"></div>
@@ -29,47 +31,46 @@
 <script src="api/hostels.js"></script>
 <script src="api/room.js"></script>
 <script src="api/student.js"></script>
+<script src="api/dashboardHelper.js"></script>
 <script>
-    let managerData = localStorage.getItem('managerData') || null;
+    const manager = JSON.parse(localStorage.getItem('managerData')) || [];
+    refreshLocalStorageAndStats(manager[0].id);
     (() => {
-        if (managerData === null) {
+        if (!manager || manager.length === 0) {
             window.open('login.html', '_self')
         }
-    })()
-    let ul = document.querySelector('ul');
-    let li = document.createElement('li');
-    let atag = document.createElement('a');
+    })();
 
-    atag.innerText = 'Logout';
-    atag.addEventListener('click', () => {
+    document.getElementById('logoutBtn').onclick = () => {
         localStorage.removeItem('managerData');
         window.open('login.html', '_self');
-    });
-    li.append(atag);
-    ul.append(li);
+    };
 
-    let hostels = JSON.parse(localStorage.getItem('totHostels'));
+    let hostels = null;
+    let rooms = null;
+    let students = null;
 
-    let rooms = JSON.parse(localStorage.getItem('totRooms'));
-
-    let students = [];
-
-    const container = document.getElementById("hostelContainer");
-    function loader() {
-        container.innerHTML = '<div class="loader">Loading please wait....!!</div>';
-    }
-
-    async function getData() {
+    function getLoadata() {
         loader();
-        hostels = await getHostelDetails(`?managerId=${JSON.parse(managerData)[0].id}`);
-        let hostelIDs = hostels.map(h => h.id);
-        let query = hostelIDs.map(id => `hostelId=${id}`).join('&');
-        // rooms = await getRoomDetails(`?${query}`);
-        students = await getStdDetails(`?${query}`);
+        hostels = JSON.parse(localStorage.getItem('totHostels'));
+
+        rooms = JSON.parse(localStorage.getItem('totRooms'));
+
+        students = JSON.parse(localStorage.getItem('totStudents'));
         makeCards(hostels);
     }
 
-    getData();
+    const container = document.getElementById("hostelContainer");
+    function loader() {
+        container.innerHTML = `
+        <div class="loader-overlay">
+            <div class="loader-box">
+                <div class="loader-spinner"></div>
+                Loading please wait...
+            </div>
+        </div>`;
+    }
+    getLoadata();
 
     function makeCards(filtered) {
         container.innerHTML = '';
@@ -125,12 +126,13 @@
     }
 
     async function dltHostel(id) {
-      if(confirm('Are you sure?')){
-          await deleteHostel(id);
-          await deleteRoom(id);
-          await deleteStudent(id);
-          location.reload();
-      }
+        if (confirm('Are you sure?')) {
+            await deleteHostel(id);
+            await deleteRoom(id);
+            await deleteStudent(id);
+            refreshLocalStorageAndStats(manager[0].id);
+            location.reload();
+        }
     }
 
     function viewAllRooms(hid) {
@@ -165,7 +167,7 @@
         container.appendChild(div);
     }
 
-    function editHostel(id) {
+    async function editHostel(id) {
         const inputs = document.querySelectorAll(".form input, .form textarea");
         const [
             hostelName,
@@ -198,7 +200,7 @@
         }
 
         const hostelData = {
-            managerId: JSON.parse(managerData)[0].id,
+            managerId: manager[0].id,
             name: hostelName,
             city: city,
             state: state,
@@ -209,7 +211,17 @@
         };
 
         /* Call add hostel method from api/hostel.js*/
-        updateHostel(id,hostelData);
+        await updateHostel(id, hostelData);
+        await refreshLocalStorageAndStats(manager[0].id);
+        hostels = JSON.parse(localStorage.getItem('totHostels'));
+        rooms = JSON.parse(localStorage.getItem('totRooms'));
+        students = JSON.parse(localStorage.getItem('totStudents'));
+
+        makeCards(hostels);
+
+        document.querySelector(".editForm").remove();
+
+        alert("Hostel updated successfully!");
     }
 
     document.getElementById('searchInput').addEventListener('input', (e) => {
@@ -218,7 +230,6 @@
             h.name.toLowerCase().includes(searchText) ||
             h.location.toLowerCase().includes(searchText)
         );
-        console.log(filtered);
         makeCards(filtered);
     });
 
