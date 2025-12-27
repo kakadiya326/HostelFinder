@@ -39,14 +39,14 @@
     let mainCon = document.querySelector('.dashboard');
 
     //========= SECURITY ==========
-    let manager = JSON.parse(localStorage.getItem("managerData"));
-    refreshLocalStorageAndStats(manager[0].id);
-
+    let manager = JSON.parse(localStorage.getItem("managerData")) || [];
+    
     (() => {
         if (!manager || manager.length === 0) {
             window.open('https://managers-panel.netlify.app/login.html', '_self')
         }
     })();
+    refreshLocalStorageAndStats(manager[0].id);
 
     //==========Logout============
     document.getElementById('logoutBtn').onclick = () => {

@@ -1,5 +1,4 @@
 async function refreshLocalStorageAndStats(managerId) {
-    console.log('happened');
     const container = document.querySelector(".dashboard");
     if (container) {
         container.innerHTML = `
