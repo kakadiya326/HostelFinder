@@ -29,7 +29,6 @@
         <div class="cards"></div>
     </div>
 
-    
     <div id="globalLoader"></div>
 
 </body>
@@ -66,6 +65,7 @@
         </div>`;
     }
 
+    
     function hideLoader() {
         document.getElementById("globalLoader").innerHTML = "";
     }
@@ -123,11 +123,13 @@
         layer.classList.add('layer');
         layout.innerHTML = '';
 
+        //============= Close Pop-Up =============
         const cancelBtn = document.createElement('button');
         cancelBtn.className = 'closeBtn';
         cancelBtn.innerText = 'X';
         cancelBtn.onclick = closeLayout;
 
+        //============= Form ==============
         const form = document.createElement('form');
         form.className = 'student-form';
         form.id = 'studentForm';
@@ -147,6 +149,7 @@
             </div>
         `;
 
+        //========== Table ================
         const table = document.createElement("table");
         table.className = "student-table";
 
@@ -178,6 +181,7 @@
 
         layout.append(cancelBtn, form, table);
 
+        //========== Form Buttons =============
         document.getElementById("saveBtn").onclick = onSaveStudent;
         document.getElementById("clearBtn").onclick = clearForm;
         document.getElementById("cancelBtn").onclick = resetForm;
@@ -230,6 +234,7 @@
         }
     }
 
+    //========= Table : Edit Fill data to Form ==============
     function onEdit(std) {
         flagUpdate = true;
         currentStudent = std;
@@ -266,23 +271,27 @@
         }
     }
 
+    //========= Clear Form =========
     function clearForm(e) {
         e.preventDefault();
         document.querySelectorAll('.form-group input').forEach(i => i.value = '');
     }
 
+    //============ Cancel Button ============
     function resetForm(e) {
         e.preventDefault();
         flagUpdate = false;
         makeLayer(currentRoom);
     }
 
+    //========== Close Pop-Up =============
     function closeLayout() {
         layer.classList.remove("layer");
         layout.innerHTML = "";
         flagUpdate = false;
     }
 
+    //============= Get localStorage Data ==============
     (async function init() {
         await refreshLocalStorageAndStats(manager[0].id);
         makeCards();

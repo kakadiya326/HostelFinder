@@ -35,7 +35,7 @@
 <script src="api/api.js"></script>
 <script src="api/hostels.js"></script>
 <script>
-    
+
     //========= SECURITY ==========
     const manager = JSON.parse(localStorage.getItem('managerData')) || [];
     (() => {
@@ -49,12 +49,13 @@
     };
 
 
-    // add data logic
+    //========= Add Data Logic ===========
     document.getElementById("addHostelForm").addEventListener("submit", function (e) {
         e.preventDefault();
 
         const inputs = document.querySelectorAll(".form input, .form textarea");
 
+        //============ Assign Input's value To Variable ===========
         const [
             hostelName,
             city,

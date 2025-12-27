@@ -40,12 +40,15 @@
     <script src="api/api.js"></script>
     <script src="api/manager.js"></script>
     <script>
+
+      //=========== GLOBALS =============
       const loginBtn = document.getElementById("loginBtn");
       const registerBtn = document.getElementById("registerBtn");
       const message = document.getElementById("msg");
       const form = document.querySelectorAll('form');
       form[1].classList.add("hidden");
 
+      //=========== Register and Login Toggles =============
       loginBtn.addEventListener("click", () => {
         loginBtn.classList.add("active");
         registerBtn.classList.remove("active");
@@ -53,6 +56,14 @@
         form[1].classList.add("hidden");
       });
 
+      registerBtn.addEventListener("click", () => {
+        registerBtn.classList.add("active");
+        loginBtn.classList.remove("active");
+        form[0].classList.add("hidden");
+        form[1].classList.remove("hidden");
+      });
+
+      //============ Pop-Up Message ============
       function showMessage(text, type) {
         message.innerText = text;
         message.classList.remove("success", "error");
@@ -66,6 +77,7 @@
         message.style.animation = "msgshow 2s ease";
       }
 
+      //========= Login Logic ==============
       async function loginFun(e) {
         e.preventDefault();
 
@@ -96,13 +108,7 @@
         }
       }
 
-      registerBtn.addEventListener("click", () => {
-        registerBtn.classList.add("active");
-        loginBtn.classList.remove("active");
-        form[0].classList.add("hidden");
-        form[1].classList.remove("hidden");
-      });
-
+      //============ Register Logic ============
       async function registerFun(e) {
         e.preventDefault();
         let name = form[1][0].value.trim();

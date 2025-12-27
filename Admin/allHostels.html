@@ -34,6 +34,9 @@
 <script src="api/dashboardHelper.js"></script>
 <script>
     const manager = JSON.parse(localStorage.getItem('managerData')) || [];
+    const container = document.getElementById("hostelContainer");
+
+    //========= SECURITY ==========
     refreshLocalStorageAndStats(manager[0].id);
     (() => {
         if (!manager || manager.length === 0) {
@@ -50,17 +53,27 @@
     let rooms = null;
     let students = null;
 
-    function getLoadata() {
-        loader();
-        hostels = JSON.parse(localStorage.getItem('totHostels'));
-
-        rooms = JSON.parse(localStorage.getItem('totRooms'));
-
-        students = JSON.parse(localStorage.getItem('totStudents'));
-        makeCards(hostels);
+    //========== Fetch Data from localStorage ============
+    function getHostels() {
+        return JSON.parse(localStorage.getItem('totHostels')) || [];
     }
 
-    const container = document.getElementById("hostelContainer");
+    function getRooms() {
+        return JSON.parse(localStorage.getItem('totRooms')) || [];
+    }
+
+    function getStudents() {
+        return JSON.parse(localStorage.getItem('totStudents')) || [];
+    }
+
+    //=======
+    function getLoadata() {
+        loader();
+        makeCards();
+    }
+    getLoadata();
+
+
     function loader() {
         container.innerHTML = `
         <div class="loader-overlay">
@@ -70,14 +83,15 @@
             </div>
         </div>`;
     }
-    getLoadata();
 
-    function makeCards(filtered) {
+    //============= Hostel Dropdown + Rooms list ===============
+    function makeCards() {
         container.innerHTML = '';
-        filtered.forEach(hostel => {
+        getHostels().forEach(hostel => {
             const hostelCard = document.createElement("div");
             hostelCard.className = "hostel-card";
 
+            //========== Dropdown Head ================
             const header = document.createElement("div");
             header.className = "hostel-header";
             header.innerHTML = `
@@ -89,20 +103,21 @@
                 </div>
 
                 <div style="display:flex; gap:10px; align-items:center;">
-                    <span>Rooms: ${rooms.filter(room => room.hostelId === hostel.id).length} ||
+                    <span>Rooms: ${getRooms().filter(room => room.hostelId === hostel.id).length} ||
                     <span>ID: ${hostel.id}</span>
                     <button class="view-rooms-btn" onclick=viewAllRooms(${hostel.id}) >View All Rooms</button>
                     <button class="update-rooms-btn" onclick='makeEditForm(${JSON.stringify(hostel)})'>Edit</button>
-                    <button class="delete-rooms-btn" onclick='dltHostel(${hostel.id})'>delete</button>
+                    <button class="delete-rooms-btn" onclick='dltHostel(${hostel.id})'>Delete</button>
                 </div>
             `;
 
+            //============== Dropdown Body ===============
             const dropdown = document.createElement("div");
             dropdown.className = "room-dropdown";
 
             dropdown.innerHTML = `<p><b>${hostel.location}</b></p>`;
 
-            rooms
+            getRooms()
                 .filter(room => room.hostelId === hostel.id)
                 .forEach(room => {
                     dropdown.innerHTML += `
@@ -125,23 +140,15 @@
         });
     }
 
-    async function dltHostel(id) {
-        if (confirm('Are you sure?')) {
-            await deleteHostel(id);
-            await deleteRoom(id);
-            await deleteStudent(id);
-            refreshLocalStorageAndStats(manager[0].id);
-            location.reload();
-        }
-    }
-
+    //======== View Rooms Logic ==========
     function viewAllRooms(hid) {
         loader();
-        collectRooms = rooms.filter(room => room.hostelId === hid);
+        collectRooms = getRooms().filter(room => room.hostelId === hid);
         localStorage.setItem('rooms', JSON.stringify(collectRooms));
         window.open('hostelRooms.html', '_self');
     }
 
+    //=========== Edit Hostel =============
     function makeEditForm(data) {
         let div = document.createElement('div');
         div.className = "editForm";
@@ -167,6 +174,18 @@
         container.appendChild(div);
     }
 
+    //============= Delete Hostel ==============
+    async function dltHostel(id) {
+        if (confirm('Are you sure?')) {
+            await deleteHostel(id);
+            await deleteRoom(id);
+            await deleteStudent(id);
+            refreshLocalStorageAndStats(manager[0].id);
+            location.reload();
+        }
+    }
+
+    //========== Send Updated Hostel Data ==============
     async function editHostel(id) {
         const inputs = document.querySelectorAll(".form input, .form textarea");
         const [
@@ -213,20 +232,15 @@
         /* Call add hostel method from api/hostel.js*/
         await updateHostel(id, hostelData);
         await refreshLocalStorageAndStats(manager[0].id);
-        hostels = JSON.parse(localStorage.getItem('totHostels'));
-        rooms = JSON.parse(localStorage.getItem('totRooms'));
-        students = JSON.parse(localStorage.getItem('totStudents'));
-
-        makeCards(hostels);
-
+        makeCards(getHostels());
         document.querySelector(".editForm").remove();
-
         alert("Hostel updated successfully!");
     }
 
+    //============ Search Hostel ==============
     document.getElementById('searchInput').addEventListener('input', (e) => {
         const searchText = e.target.value.toLowerCase();
-        const filtered = hostels.filter(h =>
+        const filtered = getHostels().filter(h =>
             h.name.toLowerCase().includes(searchText) ||
             h.location.toLowerCase().includes(searchText)
         );

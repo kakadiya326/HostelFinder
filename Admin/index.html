@@ -31,10 +31,12 @@
 <script src="api/dashboardHelper.js"></script>
 <script>
 
+    //=========== GLOBALS =============
     let hostelsData = [];
     let roomsData = [];
     let studentData = [];
     let btnDetails = document.querySelector('button');
+    let mainCon = document.querySelector('.dashboard');
 
     //========= SECURITY ==========
     let manager = JSON.parse(localStorage.getItem("managerData"));
@@ -51,8 +53,6 @@
         localStorage.removeItem('managerData');
         window.open('login.html', '_self');
     };
-
-    let mainCon = document.querySelector('.dashboard');
 
     //====== Dashboard Cards========
     function makeCards(title, val, detial) {
